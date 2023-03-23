@@ -1,4 +1,4 @@
-import { conflictError } from '@/errors/conflict-error';
+import { conflictError } from '@/errors';
 import { CreateUserParams } from '@/protocols';
 import userRepository from '@/repositories/user-repository';
 import { User } from '@prisma/client';
@@ -9,7 +9,7 @@ export async function createUser({ name, email, password }: CreateUserParams): P
 
   const hashedPassword = await bcrypt.hash(password, 12);
 
-  return userRepository.createUser({
+  return userRepository.create({
     name,
     email,
     password: hashedPassword,
