@@ -1,5 +1,5 @@
 import dashboardRepository from '@/repositories/dashboard-repository';
-import { conflictError } from '@/errors';
+import { conflictError, notFoundError } from '@/errors';
 
 export async function createFavoriteTicker(userId: number, ticker: string) {
   const tickerExists = await dashboardRepository.findUserTicker(userId, ticker);
@@ -13,8 +13,19 @@ export async function createFavoriteTicker(userId: number, ticker: string) {
   return newTicker;
 }
 
+export async function findFavoriteTickers(userId: number) {
+  const tickers = await dashboardRepository.findAllTickersByUserId(userId);
+
+  if (tickers.length === 0) {
+    throw notFoundError();
+  }
+
+  return tickers;
+}
+
 const dashboardService = {
   createFavoriteTicker,
+  findFavoriteTickers,
 };
 
 export default dashboardService;

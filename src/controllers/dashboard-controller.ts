@@ -16,6 +16,18 @@ export async function postFavoriteStock(req: AuthenticatedRequest, res: Response
     if (error.name === 'ConflictError') {
       return res.status(httpStatus.CONFLICT).send(error.message);
     }
-    return res.status(httpStatus.BAD_REQUEST).send({});
+    return res.sendStatus(httpStatus.BAD_REQUEST);
+  }
+}
+
+export async function getFavoriteTickers(req: AuthenticatedRequest, res: Response) {
+  const { userId } = req;
+
+  try {
+    const result = await dashboardService.findFavoriteTickers(userId);
+
+    return res.status(httpStatus.OK).send(result);
+  } catch (error) {
+    return res.sendStatus(httpStatus.NOT_FOUND);
   }
 }

@@ -16,9 +16,21 @@ async function create(data: Prisma.DashboardUncheckedCreateInput) {
   });
 }
 
+async function findAllTickersByUserId(userId: number) {
+  return prisma.dashboard.findMany({
+    where: {
+      userId,
+    },
+    select: {
+      ticker: true,
+    },
+  });
+}
+
 const dashboardRepository = {
   findUserTicker,
   create,
+  findAllTickersByUserId,
 };
 
 export default dashboardRepository;
