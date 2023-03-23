@@ -13,3 +13,7 @@ export type SignInParams = {
   email: string;
   password: string;
 };
+
+export type CreateFavoriteStockParams = {
+  ticker: string;
+};
