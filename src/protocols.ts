@@ -8,3 +8,8 @@ export type CreateUserParams = {
   email: string;
   password: string;
 };
+
+export type SignInParams = {
+  email: string;
+  password: string;
+};
