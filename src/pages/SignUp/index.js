@@ -30,7 +30,7 @@ export default function SignUp() {
 
         await signUp(body);
         toast.success('Inscrito com sucesso! Por favor, faça login.');
-        navigate('/sign-in');
+        navigate('/');
       } catch (error) {
         toast.error('Não foi possível fazer o cadastro!');
       }
