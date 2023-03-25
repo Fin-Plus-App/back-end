@@ -6,7 +6,7 @@ export default function FavoriteTicker() {
   const [favoriteTickers, setFavoriteTickers] = useState();
   const { dashboardFavorites } = useDashboardFavorites();
   const { getTickersData } = useTickersData();
-  
+
   useEffect(() => {
     if (dashboardFavorites !== null) {
       const tickers = [];
@@ -15,8 +15,10 @@ export default function FavoriteTicker() {
       });
 
       const params = tickers.join('%2C');
-
       getFavoriteTickersData(params);
+      setInterval(() => {
+        getFavoriteTickersData(params);
+      }, 60000);
     }
   }, [dashboardFavorites]);
 

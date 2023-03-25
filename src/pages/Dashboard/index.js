@@ -1,9 +1,17 @@
+import { useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import FavoriteTickers from '../../components/FavoriteTickers';
-import useDashboardFavorites from '../../hooks/api/useDashboardFavorites';
+import UserContext from '../../contexts/UserContext';
 
 export default function Dashboard() {
-  const { dashboardFavorites } = useDashboardFavorites();
+  const { userData } = useContext(UserContext);
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    if (!userData.token) {
+      navigate('/');
+    }
+  }, []);
   return (
     <>
       Dashboard

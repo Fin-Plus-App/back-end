@@ -1,14 +1,22 @@
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import ButtonForm from '../../components/Form/Button';
 import InputForm from '../../components/Form/Input';
+import UserContext from '../../contexts/UserContext';
 import useSignUp from '../../hooks/api/useSignUp';
 
 export default function SignUp() {
   const navigate = useNavigate();
   const [form, setForm] = useState({ name: '', email: '', password: '', confirmPassword: '' });
   const { signUpLoading, signUp } = useSignUp();
+  const { userData } = useContext(UserContext);
+
+  useEffect(() => {
+    if (userData.token) {
+      navigate('/dashboard');
+    }
+  }, []);
 
   function handleForm(event) {
     const { name, value } = event.target;
