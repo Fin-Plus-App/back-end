@@ -1,7 +1,6 @@
 import api from './api';
 
 export async function saveDashboardFavorites(body, token) {
-  console.log(body);
   const response = await api.post('/dashboard/favorites', body, {
     headers: {
       Authorization: `Bearer ${token}`,

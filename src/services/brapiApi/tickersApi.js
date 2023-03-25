@@ -5,3 +5,8 @@ export async function findTicker(params) {
 
   return response.data.stocks;
 }
+
+export async function getTickersData(params) {
+  const response = await brapiApi.get(`/api/quote/${params}?range=1d&interval=1d&fundamental=true&dividends=true`);
+  return response.data.results;
+}
