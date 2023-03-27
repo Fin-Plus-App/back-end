@@ -1,8 +1,19 @@
 import styled from 'styled-components';
 
-export default function InputForm({ label, id, name, value, onChange, type, placeholder, minLength, required }) {
+export default function InputForm({
+  label,
+  id,
+  name,
+  value,
+  onChange,
+  type,
+  placeholder,
+  minLength,
+  disabled,
+  required,
+}) {
   return (
-    <>
+    <InputContainer>
       <LabelStyle htmlFor={id}>{label}</LabelStyle>
       <InputStyle
         name={name}
@@ -12,12 +23,34 @@ export default function InputForm({ label, id, name, value, onChange, type, plac
         type={type}
         placeholder={placeholder}
         minLength={minLength}
+        disabled={disabled}
         required={required}
       />
-    </>
+    </InputContainer>
   );
 }
 
-const InputStyle = styled.input``;
+const InputContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
-const LabelStyle = styled.label``;
+const InputStyle = styled.input`
+  width: 90%;
+  height: 2.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #cecece;
+  border-radius: 0.3rem;
+  padding: 0.6rem;
+  font-size: 1rem;
+  font-weight: 300;
+  color: #000000;
+`;
+
+const LabelStyle = styled.label`
+  width: 90%;
+  margin-bottom: 0.3rem;
+  font-size: 1.2rem;
+`;

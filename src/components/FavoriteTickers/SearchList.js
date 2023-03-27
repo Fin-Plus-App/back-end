@@ -32,6 +32,6 @@ const ResultSearch = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 50px;
+  height: 3rem;
   cursor: pointer;
 `;
