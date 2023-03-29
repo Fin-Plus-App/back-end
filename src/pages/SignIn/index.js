@@ -103,7 +103,7 @@ const FormContainer = styled.form`
   flex-direction: column;
 `;
 
-const TextLink = styled.p`
+const TextLink = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;

@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
-import LoadingButton from '../../assets/styles/LoadingButton';
 import ButtonForm from '../../components/Form/Button';
 import InputForm from '../../components/Form/Input';
 import StaticLogo from '../../components/StaticLogo';

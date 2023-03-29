@@ -1,26 +1,28 @@
 import { useEffect, useState } from 'react';
+import styled from 'styled-components';
 import useDashboardFavorites from '../../hooks/api/useDashboardFavorites';
 import useTickersData from '../../hooks/brapiApi/useTickersData';
+import { RxTriangleDown, RxTriangleUp } from 'react-icons/rx';
 
-export default function FavoriteTicker() {
+export default function FavoriteTicker({ tickers }) {
   const [favoriteTickers, setFavoriteTickers] = useState();
-  const { dashboardFavorites } = useDashboardFavorites();
   const { getTickersData } = useTickersData();
 
   useEffect(() => {
-    if (dashboardFavorites !== null) {
-      const tickers = [];
-      dashboardFavorites.forEach((favorite) => {
-        return tickers.push(favorite.ticker);
+    if (tickers) {
+      const tickersList = [];
+      tickers.forEach((favorite) => {
+        return tickersList.push(favorite.ticker);
       });
 
-      const params = tickers.join('%2C');
+      const params = tickersList.join('%2C');
+
       getFavoriteTickersData(params);
       setInterval(() => {
         getFavoriteTickersData(params);
       }, 60000);
     }
-  }, [dashboardFavorites]);
+  }, [tickers]);
 
   async function getFavoriteTickersData(params) {
     try {
@@ -34,18 +36,76 @@ export default function FavoriteTicker() {
     return <></>;
   }
 
+  function variationCollor(percent) {
+    if (percent > 0) {
+      return '#008000';
+    } else if (percent < 0) {
+      return '#ff0000';
+    } else {
+      return '#a9a9a9';
+    }
+  }
+
   return (
     <>
       {favoriteTickers.map((ticker, index) => {
         return (
-          <div key={index}>
-            <img src={ticker.logourl} />
-            <p>{ticker.symbol}</p>
-            <p>{ticker.regularMarketPrice}</p>
-            <p>{ticker.regularMarketChangePercent}</p>
-          </div>
+          <TickerContainer key={index}>
+            <TickerImage src={ticker.logourl} />
+            {/*      <TickerName>{ticker.shortName}</TickerName> */}
+            <Ticker>{ticker.symbol}</Ticker>
+            <TickerPrice>
+              <p>Valor atual</p>
+              <p>R$ {ticker.regularMarketPrice.toFixed(2).replace('.', ',')}</p>
+            </TickerPrice>
+            <TickerVariation color={variationCollor(ticker.regularMarketChangePercent)}>
+              <p>Variação diária</p>
+              <div>
+                {ticker.regularMarketChangePercent > 0 ? <RxTriangleUp /> : <RxTriangleDown />}
+                <p>{ticker.regularMarketChangePercent.toFixed(2).replace('.', ',')}%</p>
+              </div>
+            </TickerVariation>
+          </TickerContainer>
         );
       })}
     </>
   );
 }
+
+const TickerContainer = styled.div`
+  display: flex;
+  width: 100%;
+  height: 4rem;
+  justify-content: space-around;
+  align-items: center;
+`;
+
+const TickerImage = styled.img`
+  width: 3rem;
+  border-radius: 0.5rem;
+`;
+
+const Ticker = styled.div``;
+
+const TickerName = styled.div``;
+
+const TickerPrice = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-around;
+  align-items: center;
+`;
+
+const TickerVariation = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-around;
+  div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: ${(props) => props.color};
+  }
+`;
