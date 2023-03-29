@@ -17,3 +17,7 @@ export type SignInParams = {
 export type CreateFavoriteStockParams = {
   ticker: string;
 };
+
+export type DeleteFavoriteStockParams = {
+  ticker: string;
+};

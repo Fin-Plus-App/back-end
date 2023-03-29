@@ -1,6 +1,6 @@
-import { getFavoriteTickers, postFavoriteStock } from '@/controllers/dashboard-controller';
-import { authenticateToken, validateBody } from '@/middlewares';
-import { createFavoriteStockSchema } from '@/schemas';
+import { deleteFavoriteStock, getFavoriteTickers, postFavoriteStock } from '@/controllers/dashboard-controller';
+import { authenticateToken, validateBody, validateParams } from '@/middlewares';
+import { createFavoriteStockSchema, deleteFavoriteStockSchema } from '@/schemas';
 import { Router } from 'express';
 
 const dashboardRouter = Router();
@@ -8,5 +8,6 @@ const dashboardRouter = Router();
 dashboardRouter.all('/*', authenticateToken);
 dashboardRouter.post('/favorites', validateBody(createFavoriteStockSchema), postFavoriteStock);
 dashboardRouter.get('/favorites', getFavoriteTickers);
+dashboardRouter.delete('/favorites/:ticker', validateParams(deleteFavoriteStockSchema), deleteFavoriteStock);
 
 export { dashboardRouter };

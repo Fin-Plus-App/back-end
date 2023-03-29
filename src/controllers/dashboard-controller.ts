@@ -1,5 +1,5 @@
 import { AuthenticatedRequest } from '@/middlewares';
-import { CreateFavoriteStockParams } from '@/protocols';
+import { CreateFavoriteStockParams, DeleteFavoriteStockParams } from '@/protocols';
 import dashboardService from '@/services/dashboard-service';
 import { Response } from 'express';
 import httpStatus from 'http-status';
@@ -29,5 +29,21 @@ export async function getFavoriteTickers(req: AuthenticatedRequest, res: Respons
     return res.status(httpStatus.OK).send(result);
   } catch (error) {
     return res.sendStatus(httpStatus.NOT_FOUND);
+  }
+}
+
+export async function deleteFavoriteStock(req: AuthenticatedRequest, res: Response) {
+  const { userId } = req;
+  const { ticker } = req.query as DeleteFavoriteStockParams;
+
+  try {
+    const result = await dashboardService.deleteFavoriteTicker(userId, ticker);
+
+    return res.sendStatus(httpStatus.OK);
+  } catch (error) {
+    if (error.name === 'NotFoundError') {
+      return res.sendStatus(httpStatus.NOT_FOUND);
+    }
+    return res.sendStatus(httpStatus.BAD_REQUEST);
   }
 }
