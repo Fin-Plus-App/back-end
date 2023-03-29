@@ -11,7 +11,7 @@ export default function useDashboardFavorites() {
     loading: dashboardFavoritesLoading,
     error: dashboardFavoritesError,
     act: getDashboardFavorites,
-  } = useAsync(() => dashboarApi.getDashboardFavoritest(token));
+  } = useAsync(() => dashboarApi.getDashboardFavorites(token));
 
   return {
     dashboardFavorites,

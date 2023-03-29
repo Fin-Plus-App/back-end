@@ -3,10 +3,14 @@ import styled from 'styled-components';
 import useDashboardFavorites from '../../hooks/api/useDashboardFavorites';
 import useTickersData from '../../hooks/brapiApi/useTickersData';
 import { RxTriangleDown, RxTriangleUp } from 'react-icons/rx';
+import { BsFillTrash3Fill } from 'react-icons/bs';
+import useDeleteDashBoardFavorite from '../../hooks/api/useDeleteDashboardFavorite';
 
-export default function FavoriteTicker({ tickers }) {
+export default function FavoriteTicker({ tickers, setTickers }) {
   const [favoriteTickers, setFavoriteTickers] = useState();
   const { getTickersData } = useTickersData();
+  const { deleteDashBoardFavorite } = useDeleteDashBoardFavorite();
+  const { getDashboardFavorites } = useDashboardFavorites();
 
   useEffect(() => {
     if (tickers) {
@@ -32,6 +36,21 @@ export default function FavoriteTicker({ tickers }) {
       console.log(error);
     }
   }
+
+  async function deleteTicker(ticker) {
+    const deleteTicker = confirm('Deseja excluir ticker?');
+
+    if (deleteTicker) {
+      try {
+        await deleteDashBoardFavorite(ticker);
+        const result = await getDashboardFavorites();
+        setTickers(result);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }
+
   if (!favoriteTickers) {
     return <></>;
   }
@@ -65,6 +84,9 @@ export default function FavoriteTicker({ tickers }) {
                 <p>{ticker.regularMarketChangePercent.toFixed(2).replace('.', ',')}%</p>
               </div>
             </TickerVariation>
+            <DeleteContainer onClick={() => deleteTicker(ticker.symbol)}>
+              <BsFillTrash3Fill />
+            </DeleteContainer>
           </TickerContainer>
         );
       })}
@@ -108,4 +130,11 @@ const TickerVariation = styled.div`
     align-items: center;
     color: ${(props) => props.color};
   }
+`;
+
+const DeleteContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
 `;

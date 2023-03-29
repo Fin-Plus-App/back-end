@@ -93,7 +93,7 @@ export default function AddFavoriteTicker({ setTickers }) {
           )}
         </ResultContainer>
       </SearchContainer>
-      <ButtonContainer>
+      <ButtonContainer showDisplay={selectedTicker && !searchOpen}>
         {selectedTicker && !searchOpen && (
           <>
             <CancelButton onClick={() => cleanSearch()}>Cancelar</CancelButton>
@@ -111,14 +111,6 @@ const AddFavoriteTickerContainer = styled.div`
   flex-direction: column;
   align-items: center;
   margin: 1rem 0;
-`;
-
-const SearchLabel = styled.label`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-left: 1rem;
-  cursor: pointer;
 `;
 
 const SearchInput = styled.input`
@@ -151,7 +143,7 @@ const ResultContainer = styled.div`
 `;
 
 const ButtonContainer = styled.div`
-  display: flex;
+  display: ${(props) => (props.showDisplay ? 'flex' : 'none')};
   margin: 1rem 0;
 `;
 

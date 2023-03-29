@@ -17,7 +17,7 @@ export default function FavoriteTickers() {
   return (
     <FavoriteTickersContainer>
       <AddFavoriteTicker setTickers={setTickers} />
-      <FavoriteTicker tickers={tickers} />
+      <FavoriteTicker tickers={tickers} setTickers={setTickers} />
     </FavoriteTickersContainer>
   );
 }
