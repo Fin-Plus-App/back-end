@@ -11,15 +11,16 @@ datasource db {
 }
 
 model User {
-  id         Int         @id @default(autoincrement())
-  name       String      @db.VarChar(255)
-  email      String      @unique @db.VarChar(255)
-  password   String      @db.VarChar(255)
-  pictureUrl String?
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @updatedAt
-  Session    Session[]
-  Dashboard  Dashboard[]
+  id          Int           @id @default(autoincrement())
+  name        String        @db.VarChar(255)
+  email       String        @unique @db.VarChar(255)
+  password    String        @db.VarChar(255)
+  pictureUrl  String?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  Session     Session[]
+  Dashboard   Dashboard[]
+  Transaction Transaction[]
 }
 
 model Session {
@@ -38,4 +39,22 @@ model Dashboard {
   ticker    String   @db.VarChar(255)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Transaction {
+  id         Int               @id @default(autoincrement())
+  userId     Int
+  User       User              @relation(fields: [userId], references: [id])
+  ticker     String            @db.VarChar(255)
+  totalPrice Int
+  amount     Int
+  date       DateTime
+  status     TransactionStatus
+  createdAt  DateTime          @default(now())
+  updatedAt  DateTime          @updatedAt
+}
+
+enum TransactionStatus {
+  BUY
+  SELL
 }
