@@ -21,3 +21,23 @@ export type CreateFavoriteStockParams = {
 export type DeleteFavoriteStockParams = {
   ticker: string;
 };
+
+export type CreateTransactionParams = {
+  ticker: string;
+  totalPrice: number;
+  amount: number;
+  date: Date;
+  status: 'BUY' | 'SELL';
+};
+
+export type RequestError = {
+  status: number;
+  data: object | null;
+  statusText: string;
+  name: string;
+  message: string;
+};
+
+export type BrapiAvaiable = {
+  stocks: string[];
+};
