@@ -44,8 +44,20 @@ export async function createTransaction(userId: number, data: CreateTransactionP
   return transaction;
 }
 
+async function findAllUserTransactions(userId: number) {
+  const transactions = await transactionRepository.findAllTransactionsByUserId(userId);
+
+  if (transactions.length === 0) {
+    throw notFoundError();
+  }
+
+  return transactions;
+}
+
 const transactionService = {
   createTransaction,
+  checkAvailability,
+  findAllUserTransactions,
 };
 
 export default transactionService;

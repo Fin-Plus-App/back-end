@@ -13,8 +13,26 @@ export async function postTransaction(req: AuthenticatedRequest, res: Response) 
 
     return res.status(httpStatus.CREATED).send(transaction);
   } catch (error) {
+    if (error.name === 'NotFoundError') {
+      return res.sendStatus(httpStatus.NOT_FOUND);
+    }
     if (error.name === 'ConflictError') {
       return res.status(httpStatus.CONFLICT).send(error.message);
+    }
+    return res.sendStatus(httpStatus.BAD_REQUEST);
+  }
+}
+
+export async function getAllUserTransactions(req: AuthenticatedRequest, res: Response) {
+  const { userId } = req;
+
+  try {
+    const transaction = await transactionService.findAllUserTransactions(userId);
+
+    return res.status(httpStatus.OK).send(transaction);
+  } catch (error) {
+    if (error.name === 'NotFoundError') {
+      return res.sendStatus(httpStatus.NOT_FOUND);
     }
     return res.sendStatus(httpStatus.BAD_REQUEST);
   }
