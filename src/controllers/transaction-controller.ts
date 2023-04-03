@@ -37,3 +37,18 @@ export async function getAllUserTransactions(req: AuthenticatedRequest, res: Res
     return res.sendStatus(httpStatus.BAD_REQUEST);
   }
 }
+
+export async function getUserPortifolio(req: AuthenticatedRequest, res: Response) {
+  const { userId } = req;
+
+  try {
+    const portifolio = await transactionService.findUserPortifolio(userId);
+
+    return res.status(httpStatus.OK).send(portifolio);
+  } catch (error) {
+    if (error.name === 'NotFoundError') {
+      return res.sendStatus(httpStatus.NOT_FOUND);
+    }
+    return res.sendStatus(httpStatus.BAD_REQUEST);
+  }
+}

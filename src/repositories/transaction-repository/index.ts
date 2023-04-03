@@ -21,6 +21,19 @@ async function findTransactionSummary(userId: number, ticker: string) {
 async function findAllTransactionsByUserId(userId: number) {
   return prisma.transaction.findMany({
     where: { userId },
+    orderBy: [{ date: 'asc' }, { createdAt: 'asc' }],
+  });
+}
+
+async function findSummaryOfTransactionsByUserId(userId: number) {
+  return prisma.transaction.groupBy({
+    by: ['ticker', 'status'],
+    _sum: {
+      amount: true,
+    },
+    where: {
+      userId,
+    },
   });
 }
 
@@ -28,6 +41,7 @@ const transactionRepository = {
   createTransaction,
   findTransactionSummary,
   findAllTransactionsByUserId,
+  findSummaryOfTransactionsByUserId,
 };
 
 export default transactionRepository;

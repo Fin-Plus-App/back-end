@@ -54,10 +54,48 @@ async function findAllUserTransactions(userId: number) {
   return transactions;
 }
 
+async function findUserPortifolio(userId: number) {
+  const transactions = await transactionRepository.findSummaryOfTransactionsByUserId(userId);
+
+  if (transactions.length === 0) {
+    throw notFoundError();
+  }
+
+  const portifolio: { ticker: string; amount: number }[] = [];
+
+  const tickerBalances: { [ticker: string]: number } = {};
+
+  transactions.forEach((transaction) => {
+    if (transaction.status === 'BUY') {
+      if (!tickerBalances[transaction.ticker]) {
+        tickerBalances[transaction.ticker] = 0;
+      }
+      tickerBalances[transaction.ticker] += transaction._sum.amount;
+    } else if (transaction.status === 'SELL') {
+      if (!tickerBalances[transaction.ticker]) {
+        tickerBalances[transaction.ticker] = 0;
+      }
+      tickerBalances[transaction.ticker] -= transaction._sum.amount;
+    }
+  });
+
+  for (const ticker in tickerBalances) {
+    if (tickerBalances.hasOwnProperty(ticker)) {
+      const balance = tickerBalances[ticker];
+      if (balance !== 0) {
+        portifolio.push({ ticker, amount: balance });
+      }
+    }
+  }
+
+  return portifolio;
+}
+
 const transactionService = {
   createTransaction,
   checkAvailability,
   findAllUserTransactions,
+  findUserPortifolio,
 };
 
 export default transactionService;
