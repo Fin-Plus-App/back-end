@@ -19,3 +19,13 @@ export async function getAllUserTransactions(token) {
 
   return response.data;
 }
+
+export async function getUserPortifolio(token) {
+  const response = await api.get('/transaction/portifolio', {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data;
+}
