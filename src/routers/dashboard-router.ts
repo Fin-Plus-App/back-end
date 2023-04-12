@@ -8,6 +8,6 @@ const dashboardRouter = Router();
 dashboardRouter.all('/*', authenticateToken);
 dashboardRouter.post('/favorites', validateBody(createFavoriteStockSchema), postFavoriteStock);
 dashboardRouter.get('/favorites', getFavoriteTickers);
-dashboardRouter.delete('/favorites/:ticker', validateParams(deleteFavoriteStockSchema), deleteFavoriteStock);
+dashboardRouter.delete('/favorites/:id', validateParams(deleteFavoriteStockSchema), deleteFavoriteStock);
 
 export { dashboardRouter };

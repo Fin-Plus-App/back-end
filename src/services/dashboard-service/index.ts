@@ -1,5 +1,5 @@
 import dashboardRepository from '@/repositories/dashboard-repository';
-import { conflictError, notFoundError, unauthorizedError } from '@/errors';
+import { conflictError, forbiddenError, notFoundError, unauthorizedError } from '@/errors';
 
 export async function createFavoriteTicker(userId: number, ticker: string) {
   const tickerExists = await dashboardRepository.findUserTicker(userId, ticker);
@@ -23,11 +23,15 @@ export async function findFavoriteTickers(userId: number) {
   return tickers;
 }
 
-export async function deleteFavoriteTicker(userId: number, ticker: string) {
-  const favoriteTicker = await dashboardRepository.findTickerByTicker(ticker, userId);
+export async function deleteFavoriteTicker(userId: number, tickerId: number) {
+  const favoriteTicker = await dashboardRepository.findTickerByTickerId(tickerId);
 
   if (!favoriteTicker) {
     throw notFoundError();
+  }
+
+  if (favoriteTicker.userId !== userId) {
+    throw forbiddenError();
   }
 
   await dashboardRepository.deleteTickerById(favoriteTicker.id);

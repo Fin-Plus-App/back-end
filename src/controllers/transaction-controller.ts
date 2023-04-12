@@ -17,7 +17,7 @@ export async function postTransaction(req: AuthenticatedRequest, res: Response) 
       return res.sendStatus(httpStatus.NOT_FOUND);
     }
     if (error.name === 'ConflictError') {
-      return res.status(httpStatus.CONFLICT).send(error.message);
+      return res.status(httpStatus.CONFLICT).send(error);
     }
     return res.sendStatus(httpStatus.BAD_REQUEST);
   }

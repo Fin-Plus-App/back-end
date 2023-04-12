@@ -14,7 +14,7 @@ export async function postFavoriteStock(req: AuthenticatedRequest, res: Response
     return res.status(httpStatus.CREATED).send(result);
   } catch (error) {
     if (error.name === 'ConflictError') {
-      return res.status(httpStatus.CONFLICT).send(error.message);
+      return res.status(httpStatus.CONFLICT).send(error);
     }
     return res.sendStatus(httpStatus.BAD_REQUEST);
   }
@@ -34,15 +34,19 @@ export async function getFavoriteTickers(req: AuthenticatedRequest, res: Respons
 
 export async function deleteFavoriteStock(req: AuthenticatedRequest, res: Response) {
   const { userId } = req;
-  const { ticker } = req.query as DeleteFavoriteStockParams;
+  const { id } = req.params;
+  const tickerId = Number(id);
 
   try {
-    const result = await dashboardService.deleteFavoriteTicker(userId, ticker);
+    const result = await dashboardService.deleteFavoriteTicker(userId, tickerId);
 
-    return res.sendStatus(httpStatus.OK);
+    return res.sendStatus(httpStatus.NO_CONTENT);
   } catch (error) {
     if (error.name === 'NotFoundError') {
       return res.sendStatus(httpStatus.NOT_FOUND);
+    }
+    if (error.name === 'ForbiddenError') {
+      return res.sendStatus(httpStatus.FORBIDDEN);
     }
     return res.sendStatus(httpStatus.BAD_REQUEST);
   }

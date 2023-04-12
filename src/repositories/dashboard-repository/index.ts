@@ -27,9 +27,9 @@ async function findAllTickersByUserId(userId: number) {
   });
 }
 
-async function findTickerByTicker(ticker: string, userId: number) {
+async function findTickerByTickerId(id: number) {
   return prisma.dashboard.findFirst({
-    where: { AND: [{ ticker }, { userId }] },
+    where: { id },
   });
 }
 
@@ -43,7 +43,7 @@ const dashboardRepository = {
   findUserTicker,
   create,
   findAllTickersByUserId,
-  findTickerByTicker,
+  findTickerByTickerId,
   deleteTickerById,
 };
 

@@ -6,5 +6,5 @@ export const createFavoriteStockSchema = Joi.object<CreateFavoriteStockParams>({
 });
 
 export const deleteFavoriteStockSchema = Joi.object<DeleteFavoriteStockParams>({
-  ticker: Joi.string().required(),
+  id: Joi.number().integer().required(),
 });

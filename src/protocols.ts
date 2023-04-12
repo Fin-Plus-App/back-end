@@ -19,7 +19,7 @@ export type CreateFavoriteStockParams = {
 };
 
 export type DeleteFavoriteStockParams = {
-  ticker: string;
+  id: number;
 };
 
 export type CreateTransactionParams = {
