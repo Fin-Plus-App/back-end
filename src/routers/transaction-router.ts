@@ -8,6 +8,6 @@ const transactionRouter = Router();
 transactionRouter.all('/*', authenticateToken);
 transactionRouter.post('/', validateBody(createTransactionSchema), postTransaction);
 transactionRouter.get('/all', getAllUserTransactions);
-transactionRouter.get('/portifolio', getUserPortifolio);
+transactionRouter.get('/portfolio', getUserPortifolio);
 
 export { transactionRouter };

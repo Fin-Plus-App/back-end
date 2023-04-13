@@ -61,9 +61,10 @@ async function findUserPortifolio(userId: number) {
     throw notFoundError();
   }
 
-  const portifolio: { ticker: string; amount: number }[] = [];
+  const portfolio: { ticker: string; amount: number; averagePrice: number }[] = [];
 
   const tickerBalances: { [ticker: string]: number } = {};
+  const tickerBuys: { [ticker: string]: { totalPrice: number; amount: number } } = {};
 
   transactions.forEach((transaction) => {
     if (transaction.status === 'BUY') {
@@ -71,6 +72,12 @@ async function findUserPortifolio(userId: number) {
         tickerBalances[transaction.ticker] = 0;
       }
       tickerBalances[transaction.ticker] += transaction._sum.amount;
+
+      if (!tickerBuys[transaction.ticker]) {
+        tickerBuys[transaction.ticker] = { totalPrice: 0, amount: 0 };
+      }
+      tickerBuys[transaction.ticker].totalPrice += transaction._sum.totalPrice;
+      tickerBuys[transaction.ticker].amount += transaction._sum.amount;
     } else if (transaction.status === 'SELL') {
       if (!tickerBalances[transaction.ticker]) {
         tickerBalances[transaction.ticker] = 0;
@@ -83,12 +90,13 @@ async function findUserPortifolio(userId: number) {
     if (tickerBalances.hasOwnProperty(ticker)) {
       const balance = tickerBalances[ticker];
       if (balance !== 0) {
-        portifolio.push({ ticker, amount: balance });
+        const averagePrice = tickerBuys[ticker] ? tickerBuys[ticker].totalPrice / tickerBuys[ticker].amount : 0;
+        portfolio.push({ ticker, amount: balance, averagePrice });
       }
     }
   }
 
-  return portifolio;
+  return portfolio;
 }
 
 const transactionService = {

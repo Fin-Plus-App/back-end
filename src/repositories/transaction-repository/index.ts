@@ -30,6 +30,7 @@ async function findSummaryOfTransactionsByUserId(userId: number) {
     by: ['ticker', 'status'],
     _sum: {
       amount: true,
+      totalPrice: true,
     },
     where: {
       userId,

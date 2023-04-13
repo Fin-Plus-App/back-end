@@ -77,7 +77,7 @@ describe('GET /transaction/all', () => {
   });
 });
 
-describe('GET /transaction/portifolio', () => {
+describe('GET /transaction/portfolio', () => {
   it('should respond with status 401 if no token is given', async () => {
     const response = await server.get('/transaction/portifolio');
 
@@ -87,7 +87,7 @@ describe('GET /transaction/portifolio', () => {
   it('should respond with status 401 if given token is not valid', async () => {
     const token = faker.lorem.word();
 
-    const response = await server.get('/transaction/portifolio').set('Authorization', `Bearer ${token}`);
+    const response = await server.get('/transaction/portfolio').set('Authorization', `Bearer ${token}`);
 
     expect(response.status).toBe(httpStatus.UNAUTHORIZED);
   });
@@ -96,7 +96,7 @@ describe('GET /transaction/portifolio', () => {
     const userWithoutSession = await createUser();
     const token = jwt.sign({ userId: userWithoutSession.id }, process.env.JWT_SECRET);
 
-    const response = await server.get('/transaction/portifolio').set('Authorization', `Bearer ${token}`);
+    const response = await server.get('/transaction/portfolio').set('Authorization', `Bearer ${token}`);
 
     expect(response.status).toBe(httpStatus.UNAUTHORIZED);
   });
@@ -106,7 +106,7 @@ describe('GET /transaction/portifolio', () => {
       const user = await createUser();
       const token = await generateValidToken(user);
 
-      const response = await server.get('/transaction/portifolio').set('Authorization', `Bearer ${token}`);
+      const response = await server.get('/transaction/portfolio').set('Authorization', `Bearer ${token}`);
 
       expect(response.status).toEqual(httpStatus.NOT_FOUND);
     });
@@ -118,7 +118,7 @@ describe('GET /transaction/portifolio', () => {
       const buyTransaction = await createBuyTransaction(user.id, ticker);
       const sellTransaction = await createSellTransaction(user.id, buyTransaction.ticker);
 
-      const response = await server.get('/transaction/portifolio').set('Authorization', `Bearer ${token}`);
+      const response = await server.get('/transaction/portfolio').set('Authorization', `Bearer ${token}`);
 
       expect(response.status).toEqual(httpStatus.OK);
       expect(response.body).toEqual([]);
@@ -133,13 +133,14 @@ describe('GET /transaction/portifolio', () => {
       const newTicker = faker.name.firstName();
       const newBuyTransaction = await createBuyTransaction(user.id, newTicker);
 
-      const response = await server.get('/transaction/portifolio').set('Authorization', `Bearer ${token}`);
+      const response = await server.get('/transaction/portfolio').set('Authorization', `Bearer ${token}`);
 
       expect(response.status).toEqual(httpStatus.OK);
       expect(response.body).toEqual([
         {
           ticker: newBuyTransaction.ticker,
           amount: newBuyTransaction.amount,
+          averagePrice: newBuyTransaction.totalPrice / newBuyTransaction.amount,
         },
       ]);
     });
