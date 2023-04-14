@@ -115,7 +115,8 @@ const DropdownMenuActive = styled.div`
   right: 0;
   border-radius: 5px;
   padding: 10px 20px;
-  background-color: red;
+  z-index: 2;
+
   &::before {
     content: '';
     position: absolute;
@@ -123,7 +124,6 @@ const DropdownMenuActive = styled.div`
     right: 10px;
     height: 20px;
     width: 20px;
-    background: red;
     z-index: -1;
     transform: rotate(45deg);
   }

@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import Dashboard from '../pages/Dashboard';
 import NotFound from '../pages/NotFound';
-import Portifolio from '../pages/Portifolio';
+import Portifolio from '../pages/Portfolio';
 import Record from '../pages/Record';
 import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
@@ -28,7 +28,7 @@ export const router = createBrowserRouter([
     errorElement: <NotFound />,
   },
   {
-    path: '/portifolio',
+    path: '/portfolio',
     element: <Portifolio />,
     errorElement: <NotFound />,
   },

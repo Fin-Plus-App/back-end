@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import Header from '../../components/Header';
-import PortifolioChart from '../../components/PortifolioChart';
 import useUserPortifolio from '../../hooks/api/useUserPortifolio';
 import useTickersData from '../../hooks/brapiApi/useTickersData';
+import PortfolioTickers from '../../components/PortfolioTickers';
+import PortfolioChart from '../../components/PortifolioChart';
 
 export default function Portifolio() {
   const [tickersData, setTickersData] = useState();
@@ -88,10 +89,15 @@ export default function Portifolio() {
     return color;
   }
 
+  if (!chartData || !userPortifolio || !tickersData) {
+    return <></>;
+  }
+
   return (
     <>
       <Header page={'Minha Carteira'} />
-      <PortifolioChart chartData={chartData} total={total} />
+      <PortfolioChart chartData={chartData} total={total} />
+      <PortfolioTickers userPortifolio={userPortifolio} tickersData={tickersData} />
     </>
   );
 }

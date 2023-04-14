@@ -71,7 +71,6 @@ export default function FavoriteTicker({ tickers, setTickers }) {
         return (
           <TickerContainer key={index}>
             <TickerImage src={ticker.logourl} />
-            {/*      <TickerName>{ticker.shortName}</TickerName> */}
             <Ticker>{ticker.symbol}</Ticker>
             <TickerPrice>
               <p>Valor atual</p>
@@ -108,8 +107,6 @@ const TickerImage = styled.img`
 `;
 
 const Ticker = styled.div``;
-
-const TickerName = styled.div``;
 
 const TickerPrice = styled.div`
   display: flex;

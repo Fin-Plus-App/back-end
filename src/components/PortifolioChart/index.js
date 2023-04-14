@@ -25,7 +25,9 @@ export default function PortfolioChart({ chartData, total }) {
       <ArrowIcon onClick={() => setDisplayLegend(!displayLegend)}>
         {displayLegend ? <IoIosArrowUp /> : <IoIosArrowDown />}
       </ArrowIcon>
-      <p>{'Valor da carteira: R$ ' + total}</p>
+      <TotalPortifolio>
+        Valor da carteira:&nbsp; <p>R$ {total}</p>
+      </TotalPortifolio>
     </ChartContainer>
   );
 }
@@ -45,4 +47,12 @@ const DoughnutContainer = styled.div`
 const ArrowIcon = styled.div`
   font-size: 2rem;
   margin: 0.5rem 0;
+`;
+
+const TotalPortifolio = styled.div`
+  display: flex;
+  font-size: 1.5rem;
+  p {
+    font-weight: 500;
+  }
 `;
