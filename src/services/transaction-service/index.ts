@@ -1,7 +1,7 @@
-import { notFoundError, conflictError } from '@/errors';
-import { CreateTransactionParams } from '@/protocols';
-import transactionRepository from '@/repositories/transaction-repository';
-import { getTickers } from '@/utils/brapi-service';
+import { notFoundError, conflictError } from '../../errors';
+import { CreateTransactionParams } from '../../protocols';
+import transactionRepository from '../../repositories/transaction-repository';
+import { getTickers } from '../../utils/brapi-service';
 
 async function checkAvailability(userId: number, data: CreateTransactionParams) {
   const tickerData = await transactionRepository.findTransactionSummary(userId, data.ticker);

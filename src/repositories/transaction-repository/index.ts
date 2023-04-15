@@ -1,5 +1,4 @@
-import { prisma } from '@/config';
-import { CreateTransactionParams } from '@/protocols';
+import { prisma } from '../../config';
 import { Prisma } from '@prisma/client';
 
 async function createTransaction(data: Prisma.TransactionUncheckedCreateInput) {

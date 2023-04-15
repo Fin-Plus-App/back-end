@@ -1,4 +1,4 @@
-import { CreateFavoriteStockParams, DeleteFavoriteStockParams } from '@/protocols';
+import { CreateFavoriteStockParams, DeleteFavoriteStockParams } from '../protocols';
 import Joi from 'joi';
 
 export const createFavoriteStockSchema = Joi.object<CreateFavoriteStockParams>({

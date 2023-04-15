@@ -1,4 +1,4 @@
-import { prisma } from '@/config';
+import { prisma } from '../../config';
 import { Prisma } from '@prisma/client';
 
 async function findUserTicker(userId: number, ticker: string) {
@@ -22,6 +22,7 @@ async function findAllTickersByUserId(userId: number) {
       userId,
     },
     select: {
+      id: true,
       ticker: true,
     },
   });

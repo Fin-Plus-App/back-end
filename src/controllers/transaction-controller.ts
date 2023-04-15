@@ -1,6 +1,6 @@
-import { AuthenticatedRequest } from '@/middlewares';
-import { CreateTransactionParams } from '@/protocols';
-import transactionService from '@/services/transaction-service';
+import { AuthenticatedRequest } from '../middlewares';
+import { CreateTransactionParams } from '../protocols';
+import transactionService from '../services/transaction-service';
 import { Response } from 'express';
 import httpStatus from 'http-status';
 

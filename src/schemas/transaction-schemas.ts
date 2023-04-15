@@ -1,4 +1,4 @@
-import { CreateTransactionParams } from '@/protocols';
+import { CreateTransactionParams } from '../protocols';
 import Joi from 'joi';
 
 export const createTransactionSchema = Joi.object<CreateTransactionParams>({

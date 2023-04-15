@@ -1,6 +1,6 @@
-import { postSignIn } from '@/controllers';
-import { validateBody } from '@/middlewares';
-import { signInSchema } from '@/schemas';
+import { postSignIn } from '../controllers';
+import { validateBody } from '../middlewares';
+import { signInSchema } from '../schemas';
 import { Router } from 'express';
 
 const authRouter = Router();

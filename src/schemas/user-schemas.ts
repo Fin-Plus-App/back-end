@@ -1,4 +1,4 @@
-import { CreateUserParams } from "@/protocols";
+import { CreateUserParams } from "../protocols";
 import Joi from "joi";
 
 export const createUserSchema = Joi.object<CreateUserParams>({

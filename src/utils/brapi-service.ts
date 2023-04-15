@@ -1,4 +1,4 @@
-import { BrapiAvaiable } from '@/protocols';
+import { BrapiAvaiable } from '../protocols';
 import { request } from './request';
 
 async function getTickers(ticker: string): Promise<BrapiAvaiable> {

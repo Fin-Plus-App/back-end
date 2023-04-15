@@ -1,7 +1,7 @@
 import { User } from '@prisma/client';
 import * as jwt from 'jsonwebtoken';
 
-import { prisma } from '@/config';
+import { prisma } from '../src/config';
 import { createUser, createSession } from './factories';
 
 export async function cleanDb() {

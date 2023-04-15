@@ -1,5 +1,5 @@
-import app, { init } from '@/app';
-import { conflictError } from '@/errors';
+import app, { init } from '../../src/app';
+import { conflictError } from '../../src/errors';
 import { faker } from '@faker-js/faker';
 import httpStatus from 'http-status';
 import supertest from 'supertest';

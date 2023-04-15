@@ -1,6 +1,6 @@
-import { AuthenticatedRequest } from '@/middlewares';
-import { CreateFavoriteStockParams, DeleteFavoriteStockParams } from '@/protocols';
-import dashboardService from '@/services/dashboard-service';
+import { AuthenticatedRequest } from '../middlewares';
+import { CreateFavoriteStockParams, DeleteFavoriteStockParams } from '../protocols';
+import dashboardService from '../services/dashboard-service';
 import { Response } from 'express';
 import httpStatus from 'http-status';
 
@@ -38,7 +38,7 @@ export async function deleteFavoriteStock(req: AuthenticatedRequest, res: Respon
   const tickerId = Number(id);
 
   try {
-    const result = await dashboardService.deleteFavoriteTicker(userId, tickerId);
+    await dashboardService.deleteFavoriteTicker(userId, tickerId);
 
     return res.sendStatus(httpStatus.NO_CONTENT);
   } catch (error) {

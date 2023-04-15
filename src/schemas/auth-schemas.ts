@@ -1,4 +1,4 @@
-import { SignInParams } from '@/protocols';
+import { SignInParams } from '../protocols';
 import Joi from 'joi';
 
 export const signInSchema = Joi.object<SignInParams>({

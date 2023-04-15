@@ -1,8 +1,8 @@
-import { invalidCredentialsError } from '@/errors';
-import { SignInParams } from '@/protocols';
-import sessionRepository from '@/repositories/session-repository';
-import userRepository from '@/repositories/user-repository';
-import { exclude } from '@/utils/prisma-utils';
+import { invalidCredentialsError } from '../../errors';
+import { SignInParams } from '../../protocols';
+import sessionRepository from '../../repositories/session-repository';
+import userRepository from '../../repositories/user-repository';
+import { exclude } from '../../utils/prisma-utils';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 

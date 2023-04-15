@@ -1,11 +1,11 @@
-import app, { init } from '@/app';
+import app, { init } from '../../src/app';
 import { faker } from '@faker-js/faker';
 import httpStatus from 'http-status';
 import * as jwt from 'jsonwebtoken';
 import supertest from 'supertest';
 import { cleanDb, generateValidToken } from '../helpers';
 import { createFavoriteTicker, createUser } from '../factories';
-import { conflictError } from '@/errors';
+import { conflictError } from '../../src/errors';
 
 beforeAll(async () => {
   await init();
@@ -61,6 +61,7 @@ describe('GET /dashboard/favorites', () => {
       expect(response.status).toEqual(httpStatus.OK);
       expect(response.body).toEqual([
         {
+          id: favoriteTicker.id,
           ticker: favoriteTicker.ticker,
         },
       ]);

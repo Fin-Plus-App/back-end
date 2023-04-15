@@ -1,5 +1,5 @@
-import dashboardRepository from '@/repositories/dashboard-repository';
-import { conflictError, forbiddenError, notFoundError, unauthorizedError } from '@/errors';
+import dashboardRepository from '../../repositories/dashboard-repository';
+import { conflictError, forbiddenError, notFoundError } from '../../errors';
 
 export async function createFavoriteTicker(userId: number, ticker: string) {
   const tickerExists = await dashboardRepository.findUserTicker(userId, ticker);

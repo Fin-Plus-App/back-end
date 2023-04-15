@@ -1,6 +1,6 @@
-import { deleteFavoriteStock, getFavoriteTickers, postFavoriteStock } from '@/controllers/dashboard-controller';
-import { authenticateToken, validateBody, validateParams } from '@/middlewares';
-import { createFavoriteStockSchema, deleteFavoriteStockSchema } from '@/schemas';
+import { deleteFavoriteStock, getFavoriteTickers, postFavoriteStock } from '../controllers/dashboard-controller';
+import { authenticateToken, validateBody, validateParams } from '../middlewares';
+import { createFavoriteStockSchema, deleteFavoriteStockSchema } from '../schemas';
 import { Router } from 'express';
 
 const dashboardRouter = Router();

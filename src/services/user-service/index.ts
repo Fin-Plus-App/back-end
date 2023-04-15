@@ -1,10 +1,9 @@
-import { conflictError } from '@/errors';
-import { CreateUserParams } from '@/protocols';
-import userRepository from '@/repositories/user-repository';
-import { User } from '@prisma/client';
+import { conflictError } from '../../errors';
+import { CreateUserParams } from '../../protocols';
+import userRepository from '../../repositories/user-repository';
 import bcrypt from 'bcrypt';
 
-export async function createUser({ name, email, password }: CreateUserParams): Promise<User> {
+export async function createUser({ name, email, password }: CreateUserParams) {
   await validateUniqueEmailOrFail(email);
 
   const hashedPassword = await bcrypt.hash(password, 12);
