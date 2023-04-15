@@ -37,11 +37,11 @@ export default function PortfolioTickers({ userPortifolio, tickersData }) {
 
 const PortfolioTickersContainer = styled.div`
   display: flex;
-  min-height: 15rem;
   flex-direction: column;
   align-items: center;
   border: 2px solid #cecece;
   border-radius: 0.5rem;
   margin: 1rem;
+  padding: 1rem 0;
   position: relative;
 `;

@@ -53,4 +53,5 @@ const LabelStyle = styled.label`
   width: 90%;
   margin-bottom: 0.3rem;
   font-size: 1.2rem;
+  color: #ffffff;
 `;

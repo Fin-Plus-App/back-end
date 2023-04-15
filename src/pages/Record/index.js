@@ -62,13 +62,15 @@ export default function Record() {
 const RecordContainer = styled.div`
   display: flex;
   flex-direction: column;
+  color: #ffffff;
 `;
 
 const RecordInfos = styled.div`
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  margin-bottom: 5rem;
+  margin-top: 4rem;
+  margin-bottom: 2rem;
 `;
 
 const RecordSubTitle = styled.div`

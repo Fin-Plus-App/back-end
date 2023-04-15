@@ -49,5 +49,5 @@ const DailyTitle = styled.div`
 
 const Border = styled.div`
   width: 95%;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #cecece;
 `;

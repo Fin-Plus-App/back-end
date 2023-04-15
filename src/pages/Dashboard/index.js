@@ -60,6 +60,9 @@ export default function Dashboard() {
         label: 'Valor',
         data: [],
         backgroundColor: [],
+        hoverBackgroundColor: [],
+        borderColor: '#cecece',
+        hoverBorderColor: '#252525',
       };
 
       let totalPortifolio = 0;
@@ -76,7 +79,9 @@ export default function Dashboard() {
 
           totalPortifolio += totalTicker;
           datasets.data.push(totalTicker);
-          datasets.backgroundColor.push(getRandomColor());
+          const color = getRandomColor();
+          datasets.backgroundColor.push(color);
+          datasets.hoverBackgroundColor.push(color);
         }
       });
 
@@ -124,6 +129,9 @@ export default function Dashboard() {
 const DashboardContainer = styled.div`
   display: flex;
   flex-direction: column;
+  position: relative;
+  color: #ffffff;
+  margin-top: 4rem;
 `;
 
 const PortfolioContainer = styled.div`
@@ -135,12 +143,11 @@ const PortfolioContainer = styled.div`
 const PortfolioTitle = styled.h3`
   font-size: 1.5rem;
   font-weight: 400;
-  color: #000000;
   margin-top: 1.5rem;
   cursor: pointer;
 
   a:visited {
-    color: #000000;
+    color: #ffffff;
   }
 `;
 

@@ -13,6 +13,9 @@ export default function PortfolioChart({ chartData, total }) {
       legend: {
         position: 'bottom',
         display: displayLegend,
+        labels: {
+          color: 'white',
+        },
       },
     },
   };
@@ -37,6 +40,7 @@ const ChartContainer = styled.div`
   flex-direction: column;
   align-items: center;
   margin: 2rem 0;
+  color: #ffffff;
 `;
 
 const DoughnutContainer = styled.div`

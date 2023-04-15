@@ -1,13 +1,11 @@
 import styled from 'styled-components';
-import LoadingButton from '../../assets/styles/LoadingButton';
+import { loadingButton } from '../../assets/styles/LoadingButton';
 
 export default function ButtonForm({ type, disabled, children }) {
   return (
     <ButtonContainer>
       {disabled ? (
-        <ButtonStyle disabled={disabled}>
-          <LoadingButton />
-        </ButtonStyle>
+        <ButtonStyle disabled={disabled}>{loadingButton}</ButtonStyle>
       ) : (
         <ButtonStyle type={type} disabled={disabled}>
           {children}
@@ -33,6 +31,8 @@ const ButtonStyle = styled.button`
   border: none;
   border-radius: 0.3rem;
   font-size: 1.2rem;
-  font-weight: 500;
+  font-weight: 700;
+  color: #ffffff;
+  background: #1e90ff;
   cursor: ${(props) => (props.disabled ? 'cursor' : 'pointer')};
 `;

@@ -17,5 +17,6 @@ const LogoName = styled.div`
   font-family: 'Alkatra', cursive;
   font-weight: 400;
   font-size: 5rem;
+  color: #ffffff;
   margin-bottom: 2rem;
 `;

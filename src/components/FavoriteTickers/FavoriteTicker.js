@@ -1,58 +1,33 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import useDashboardFavorites from '../../hooks/api/useDashboardFavorites';
-import useTickersData from '../../hooks/brapiApi/useTickersData';
 import { RxTriangleDown, RxTriangleUp } from 'react-icons/rx';
 import { BsFillTrash3Fill } from 'react-icons/bs';
 import useDeleteDashBoardFavorite from '../../hooks/api/useDeleteDashboardFavorite';
+import { ModalComponent } from '../Modal';
+import { toast } from 'react-toastify';
 
-export default function FavoriteTicker({ tickers, setTickers }) {
-  const [favoriteTickers, setFavoriteTickers] = useState();
-  const { getTickersData } = useTickersData();
+export default function FavoriteTicker({ ticker, setTickers }) {
   const { deleteDashBoardFavorite } = useDeleteDashBoardFavorite();
   const { getDashboardFavorites } = useDashboardFavorites();
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    if (tickers) {
-      const tickersList = [];
-      tickers.forEach((favorite) => {
-        return tickersList.push(favorite.ticker);
-      });
+  async function deleteTicker() {
+    setLoading(true);
 
-      const params = tickersList.join('%2C');
-
-      getFavoriteTickersData(params);
-      setInterval(() => {
-        getFavoriteTickersData(params);
-      }, 60000);
-    }
-  }, [tickers]);
-
-  async function getFavoriteTickersData(params) {
     try {
-      const result = await getTickersData(params);
-      setFavoriteTickers(result);
+      await deleteDashBoardFavorite(ticker.id);
+      const result = await getDashboardFavorites();
+      setTickers(result);
+      setLoading(false);
+      setIsOpen(false);
+      toast.success('Informações salvas com sucesso!');
     } catch (error) {
-      console.log(error);
+      setLoading(false);
+      setIsOpen(false);
+      toast.error('Não foi possível salvar suas informações!');
     }
-  }
-
-  async function deleteTicker(ticker) {
-    const deleteTicker = confirm('Deseja excluir ticker?');
-
-    if (deleteTicker) {
-      try {
-        await deleteDashBoardFavorite(ticker);
-        const result = await getDashboardFavorites();
-        setTickers(result);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  }
-
-  if (!favoriteTickers) {
-    return <></>;
   }
 
   function variationCollor(percent) {
@@ -66,30 +41,33 @@ export default function FavoriteTicker({ tickers, setTickers }) {
   }
 
   return (
-    <>
-      {favoriteTickers.map((ticker, index) => {
-        return (
-          <TickerContainer key={index}>
-            <TickerImage src={ticker.logourl} />
-            <Ticker>{ticker.symbol}</Ticker>
-            <TickerPrice>
-              <p>Valor atual</p>
-              <p>R$ {ticker.regularMarketPrice.toFixed(2).replace('.', ',')}</p>
-            </TickerPrice>
-            <TickerVariation color={variationCollor(ticker.regularMarketChangePercent)}>
-              <p>Variação diária</p>
-              <div>
-                {ticker.regularMarketChangePercent > 0 ? <RxTriangleUp /> : <RxTriangleDown />}
-                <p>{ticker.regularMarketChangePercent.toFixed(2).replace('.', ',')}%</p>
-              </div>
-            </TickerVariation>
-            <DeleteContainer onClick={() => deleteTicker(ticker.symbol)}>
-              <BsFillTrash3Fill />
-            </DeleteContainer>
-          </TickerContainer>
-        );
-      })}
-    </>
+    <TickerContainer>
+      <ModalComponent
+        title="Deseja remover dos favoritos?"
+        close="Cancelar"
+        confirm="Continuar"
+        modalIsOpen={modalIsOpen}
+        setIsOpen={setIsOpen}
+        propsFunction={deleteTicker}
+        loading={loading}
+      />
+      <TickerImage src={ticker.logourl} />
+      <Ticker>{ticker.symbol}</Ticker>
+      <TickerPrice>
+        <p>Valor atual</p>
+        <p>R$ {ticker.regularMarketPrice.toFixed(2).replace('.', ',')}</p>
+      </TickerPrice>
+      <TickerVariation color={variationCollor(ticker.regularMarketChangePercent)}>
+        <p>Variação diária</p>
+        <div>
+          {ticker.regularMarketChangePercent > 0 ? <RxTriangleUp /> : <RxTriangleDown />}
+          <p>{ticker.regularMarketChangePercent.toFixed(2).replace('.', ',')}%</p>
+        </div>
+      </TickerVariation>
+      <DeleteContainer onClick={() => setIsOpen(true)}>
+        <BsFillTrash3Fill />
+      </DeleteContainer>
+    </TickerContainer>
   );
 }
 
@@ -134,4 +112,5 @@ const DeleteContainer = styled.div`
   justify-content: center;
   align-items: center;
   font-size: 1rem;
+  cursor: pointer;
 `;

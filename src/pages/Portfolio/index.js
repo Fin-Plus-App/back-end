@@ -4,6 +4,7 @@ import useUserPortifolio from '../../hooks/api/useUserPortifolio';
 import useTickersData from '../../hooks/brapiApi/useTickersData';
 import PortfolioTickers from '../../components/PortfolioTickers';
 import PortfolioChart from '../../components/PortifolioChart';
+import styled from 'styled-components';
 
 export default function Portifolio() {
   const [tickersData, setTickersData] = useState();
@@ -94,10 +95,25 @@ export default function Portifolio() {
   }
 
   return (
-    <>
+    <PortfolioContainer>
       <Header page={'Minha Carteira'} />
-      <PortfolioChart chartData={chartData} total={total} />
-      <PortfolioTickers userPortifolio={userPortifolio} tickersData={tickersData} />
-    </>
+      <PortfolioInfos>
+        <PortfolioChart chartData={chartData} total={total} />
+        <PortfolioTickers userPortifolio={userPortifolio} tickersData={tickersData} />
+      </PortfolioInfos>
+    </PortfolioContainer>
   );
 }
+
+const PortfolioContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  color: #ffffff;
+  margin-top: 4rem;
+`;
+
+const PortfolioInfos = styled.div`
+  display: flex;
+  flex-direction: column;
+`;

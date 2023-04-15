@@ -140,7 +140,7 @@ const TextLink = styled.div`
   p {
     text-decoration: underline;
     font-size: 1rem;
-    color: ${(props) => (props.disabled ? '#cecece' : '#2b97e5')};
+    color: ${(props) => (props.disabled ? '#cecece' : '#ffffff')};
     cursor: pointer;
   }
 `;

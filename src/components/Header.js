@@ -23,7 +23,10 @@ export default function Header({ page }) {
 
   return (
     <HeaderContainer>
-      <PageName>{page}</PageName>
+      <PageMenu>
+        <p>X</p>
+        <Logo>fin+</Logo>
+      </PageMenu>
       <UserInfos>
         <UserName>{userData.user.name}</UserName>
         {userData.user.pictureUrl ? (
@@ -45,6 +48,7 @@ export default function Header({ page }) {
           )}
         </Options>
       </UserInfos>
+      <OverlayMenu onClick={() => setMenuOpen(!menuOpen)} menuOpen={menuOpen}></OverlayMenu>
     </HeaderContainer>
   );
 }
@@ -55,27 +59,57 @@ const HeaderContainer = styled.div`
   align-items: center;
   width: 100vw;
   height: 4rem;
-  background: #ffffff;
-  box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.1);
+  background: #111111;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
   padding: 1rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
 `;
 
-const PageName = styled.h2`
+const OverlayMenu = styled.div`
+  display: ${(props) => (props.menuOpen ? 'initial' : 'none')};
+  position: fixed;
+  top: 4rem;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0);
+`;
+
+const PageMenu = styled.div`
+  display: flex;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #ffffff;
+
+  p {
+    margin-right: 1rem;
+  }
+`;
+
+const Logo = styled.h2`
+  font-family: 'Alkatra', cursive;
   font-size: 2rem;
   font-weight: 500;
+  color: #ffffff;
+  text-align: start;
 `;
 
 const UserInfos = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  color: #ffffff;
 `;
 
 const UserName = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1rem;
+  font-size: 0.9rem;
   margin-right: 0.5rem;
 `;
 
@@ -94,7 +128,7 @@ const UserAvatar = styled.div`
   justify-content: center;
   align-items: center;
   font-size: 2.5rem;
-  color: #637381;
+  color: #ffffff;
 `;
 
 const Options = styled.div`
@@ -115,7 +149,8 @@ const DropdownMenuActive = styled.div`
   right: 0;
   border-radius: 5px;
   padding: 10px 20px;
-  z-index: 2;
+  z-index: 3;
+  background: #ffffff;
 
   &::before {
     content: '';
@@ -124,8 +159,9 @@ const DropdownMenuActive = styled.div`
     right: 10px;
     height: 20px;
     width: 20px;
-    z-index: -1;
+    z-index: 3;
     transform: rotate(45deg);
+    background: #ffffff;
   }
 `;
 

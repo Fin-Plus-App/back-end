@@ -96,10 +96,11 @@ const FixedInfos = styled.div`
   display: flex;
   align-items: center;
   position: absolute;
-  background: #ffffff;
+  background: #252525;
 `;
 
 const Infos = styled.div`
+  height: 100%;
   display: flex;
   align-items: center;
   margin-left: 9rem;
@@ -124,7 +125,6 @@ const TickerInfo = styled.div`
   height: 100%;
   justify-content: space-around;
   align-items: center;
-  text-align: center;
   margin: 0 0.5rem;
 `;
 

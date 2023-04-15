@@ -34,6 +34,7 @@ body {
 	line-height: 1;
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
+	background: #252525;
 }
 ol, ul {
 	list-style: none;
