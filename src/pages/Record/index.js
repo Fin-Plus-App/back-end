@@ -77,7 +77,7 @@ const RecordSubTitle = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
-  margin: 2rem 0;
+  margin: 2rem 0 1rem 0;
 
   h2 {
     font-size: 1.2rem;
