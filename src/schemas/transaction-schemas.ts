@@ -1,4 +1,4 @@
-import { CreateTransactionParams } from '../protocols';
+import { CreateTransactionParams, DeleteTransactionParams } from '../protocols';
 import Joi from 'joi';
 
 export const createTransactionSchema = Joi.object<CreateTransactionParams>({
@@ -7,4 +7,8 @@ export const createTransactionSchema = Joi.object<CreateTransactionParams>({
   amount: Joi.number().integer().required(),
   date: Joi.string().isoDate().required(),
   status: Joi.string().valid('BUY', 'SELL').required(),
+});
+
+export const deleteTransactionSchema = Joi.object<DeleteTransactionParams>({
+  id: Joi.number().integer().required(),
 });

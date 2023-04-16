@@ -13,13 +13,10 @@ export async function postTransaction(req: AuthenticatedRequest, res: Response) 
 
     return res.status(httpStatus.CREATED).send(transaction);
   } catch (error) {
-    if (error.name === 'NotFoundError') {
-      return res.sendStatus(httpStatus.NOT_FOUND);
-    }
     if (error.name === 'ConflictError') {
       return res.status(httpStatus.CONFLICT).send(error);
     }
-    return res.sendStatus(httpStatus.BAD_REQUEST);
+    return res.sendStatus(httpStatus.NOT_FOUND);
   }
 }
 
@@ -31,10 +28,7 @@ export async function getAllUserTransactions(req: AuthenticatedRequest, res: Res
 
     return res.status(httpStatus.OK).send(transaction);
   } catch (error) {
-    if (error.name === 'NotFoundError') {
-      return res.sendStatus(httpStatus.NOT_FOUND);
-    }
-    return res.sendStatus(httpStatus.BAD_REQUEST);
+    return res.sendStatus(httpStatus.NOT_FOUND);
   }
 }
 
@@ -46,9 +40,26 @@ export async function getUserPortifolio(req: AuthenticatedRequest, res: Response
 
     return res.status(httpStatus.OK).send(portifolio);
   } catch (error) {
-    if (error.name === 'NotFoundError') {
-      return res.sendStatus(httpStatus.NOT_FOUND);
+    return res.sendStatus(httpStatus.NOT_FOUND);
+  }
+}
+
+export async function deleteTransaction(req: AuthenticatedRequest, res: Response) {
+  const { userId } = req;
+  const { id } = req.params;
+  const transactionId = Number(id);
+
+  try {
+    await transactionService.deleTransaction(userId, transactionId);
+
+    return res.sendStatus(httpStatus.NO_CONTENT);
+  } catch (error) {
+    if (error.name === 'ForbiddenError') {
+      return res.status(httpStatus.FORBIDDEN).send(error);
     }
-    return res.sendStatus(httpStatus.BAD_REQUEST);
+    if (error.name === 'ConflictError') {
+      return res.status(httpStatus.CONFLICT).send(error);
+    }
+    return res.sendStatus(httpStatus.NOT_FOUND);
   }
 }

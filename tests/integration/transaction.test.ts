@@ -285,38 +285,84 @@ describe('POST /transaction', () => {
         });
       });
     });
+  });
+});
 
-    /*   it('should respond with status 200 and portfolio data empty', async () => {
+describe('DELETE /transaction', () => {
+  it('should respond with status 401 if no token is given', async () => {
+    const response = await server.delete('/transaction/0');
+
+    expect(response.status).toBe(httpStatus.UNAUTHORIZED);
+  });
+
+  it('should respond with status 401 if given token is not valid', async () => {
+    const token = faker.lorem.word();
+
+    const response = await server.delete('/transaction/0').set('Authorization', `Bearer ${token}`);
+
+    expect(response.status).toBe(httpStatus.UNAUTHORIZED);
+  });
+
+  it('should respond with status 401 if there is no session for given token', async () => {
+    const userWithoutSession = await createUser();
+    const token = jwt.sign({ userId: userWithoutSession.id }, process.env.JWT_SECRET);
+
+    const response = await server.delete('/transaction/0').set('Authorization', `Bearer ${token}`);
+
+    expect(response.status).toBe(httpStatus.UNAUTHORIZED);
+  });
+
+  describe('when token is valid', () => {
+    it('should respond with status 400 when id param is not valid', async () => {
+      const user = await createUser();
+      const token = await generateValidToken(user);
+
+      const response = await server.delete('/transaction/a').set('Authorization', `Bearer ${token}`);
+
+      expect(response.status).toEqual(httpStatus.BAD_REQUEST);
+    });
+
+    it('should respond with status 404 when the transaction does not exist', async () => {
+      const user = await createUser();
+      const token = await generateValidToken(user);
+
+      const response = await server.delete('/transaction/0').set('Authorization', `Bearer ${token}`);
+
+      expect(response.status).toEqual(httpStatus.NOT_FOUND);
+    });
+
+    it('should respond with status 403 when the transaction does not belong to the user', async () => {
+      const user = await createUser();
+      const token = await generateValidToken(user);
+      const newUser = await createUser();
+      const buyTransaction = await createBuyTransaction(newUser.id, faker.name.firstName());
+
+      const response = await server.delete(`/transaction/${buyTransaction.id}`).set('Authorization', `Bearer ${token}`);
+
+      expect(response.status).toEqual(httpStatus.FORBIDDEN);
+    });
+
+    it('should respond with status 409 when a negative balance results', async () => {
       const user = await createUser();
       const token = await generateValidToken(user);
       const ticker = faker.name.firstName();
       const buyTransaction = await createBuyTransaction(user.id, ticker);
-      const sellTransaction = await createSellTransaction(user.id, buyTransaction.ticker);
+      await createSellTransaction(user.id, ticker);
 
-      const response = await server.get('/transaction').set('Authorization', `Bearer ${token}`);
+      const response = await server.delete(`/transaction/${buyTransaction.id}`).set('Authorization', `Bearer ${token}`);
 
-      expect(response.status).toEqual(httpStatus.OK);
-      expect(response.body).toEqual([]);
+      expect(response.status).toEqual(httpStatus.CONFLICT);
+      expect(response.body).toEqual(conflictError('Insufficient stock balance!'));
     });
 
-    it('should respond with status 200 and portfolio data', async () => {
+    it('should respond with status 204 and delete transaction', async () => {
       const user = await createUser();
       const token = await generateValidToken(user);
-      const ticker = faker.name.firstName();
-      await createSellTransaction(user.id, ticker);
-      await createBuyTransaction(user.id, ticker);
-      const newTicker = faker.name.firstName();
-      const newBuyTransaction = await createBuyTransaction(user.id, newTicker);
+      const buyTransaction = await createBuyTransaction(user.id, faker.name.firstName());
 
-      const response = await server.get('/transaction').set('Authorization', `Bearer ${token}`);
+      const response = await server.delete(`/transaction/${buyTransaction.id}`).set('Authorization', `Bearer ${token}`);
 
-      expect(response.status).toEqual(httpStatus.OK);
-      expect(response.body).toEqual([
-        {
-          ticker: newBuyTransaction.ticker,
-          amount: newBuyTransaction.amount,
-        },
-      ]);
-    }); */
+      expect(response.status).toEqual(httpStatus.NO_CONTENT);
+    });
   });
 });

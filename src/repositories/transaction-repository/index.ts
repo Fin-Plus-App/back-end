@@ -41,11 +41,29 @@ async function findSummaryOfTransactionsByUserId(userId: number) {
   });
 }
 
+async function findTransactionById(id: number) {
+  return prisma.transaction.findUnique({
+    where: {
+      id,
+    },
+  });
+}
+
+async function deleteTransactionById(id: number) {
+  return prisma.transaction.delete({
+    where: {
+      id,
+    },
+  });
+}
+
 const transactionRepository = {
   createTransaction,
   findTransactionSummary,
   findAllTransactionsByUserId,
   findSummaryOfTransactionsByUserId,
+  findTransactionById,
+  deleteTransactionById,
 };
 
 export default transactionRepository;

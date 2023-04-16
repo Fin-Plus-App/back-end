@@ -1,10 +1,10 @@
-import { notFoundError, conflictError } from '../../errors';
+import { notFoundError, conflictError, forbiddenError } from '../../errors';
 import { CreateTransactionParams } from '../../protocols';
 import transactionRepository from '../../repositories/transaction-repository';
 import { getTickers } from '../../utils/brapi-service';
 
-async function checkAvailability(userId: number, data: CreateTransactionParams) {
-  const tickerData = await transactionRepository.findTransactionSummary(userId, data.ticker);
+async function checkAvailability(userId: number, ticker: string, amount: number) {
+  const tickerData = await transactionRepository.findTransactionSummary(userId, ticker);
 
   let balance = 0;
 
@@ -16,7 +16,7 @@ async function checkAvailability(userId: number, data: CreateTransactionParams) 
     }
   });
 
-  if (balance < data.amount) {
+  if (balance < amount) {
     throw conflictError('Insufficient stock balance!');
   }
 
@@ -31,7 +31,7 @@ export async function createTransaction(userId: number, data: CreateTransactionP
   }
 
   if (data.status === 'SELL') {
-    await checkAvailability(userId, data);
+    await checkAvailability(userId, data.ticker, data.amount);
   }
 
   const transactionData = {
@@ -99,11 +99,30 @@ async function findUserPortifolio(userId: number) {
   return portfolio;
 }
 
+async function deleTransaction(userId: number, transactionId: number) {
+  const transaction = await transactionRepository.findTransactionById(transactionId);
+
+  if (!transaction) {
+    throw notFoundError();
+  }
+
+  if (transaction.userId !== userId) {
+    throw forbiddenError();
+  }
+
+  if (transaction.status === 'BUY') {
+    await checkAvailability(userId, transaction.ticker, transaction.amount);
+  }
+
+  await transactionRepository.deleteTransactionById(transaction.id);
+}
+
 const transactionService = {
   createTransaction,
   checkAvailability,
   findAllUserTransactions,
   findUserPortifolio,
+  deleTransaction,
 };
 
 export default transactionService;
