@@ -72,7 +72,13 @@ export default function Header() {
           {dropdownMenuOpen ? <IoIosArrowUp /> : <IoIosArrowDown />}
           {dropdownMenuOpen && (
             <DropdownMenuActive>
-              <Option onClick={logOut}>
+              <Link to="/usuario">
+                <Option color="#00488E">
+                  <IoPersonCircle />
+                  <h3>Conta</h3>
+                </Option>
+              </Link>
+              <Option onClick={logOut} color="#d52b2b">
                 <BiLogOut />
                 <h3>Sair</h3>
               </Option>
@@ -216,7 +222,7 @@ const Option = styled.div`
     font-size: 14px;
   }
   &:hover {
-    color: #d52b2b;
+    color: ${(props) => props.color};
     cursor: pointer;
   }
 `;
@@ -261,7 +267,7 @@ const MenuItem = styled.li`
   cursor: pointer;
 
   &:hover {
-    background-color: #d52b2b;
+    background-color: #00488e;
     color: #ffffff;
   }
 `;

@@ -7,6 +7,7 @@ import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
 import BuyRegister from '../pages/BuyRegister';
 import SellRegister from '../pages/SellRegister';
+import UserInfos from '../pages/UserInfos';
 
 export const router = createBrowserRouter([
   {
@@ -39,7 +40,11 @@ export const router = createBrowserRouter([
     element: <Record />,
     errorElement: <NotFound />,
   },
-
+  {
+    path: '/usuario',
+    element: <UserInfos />,
+    errorElement: <NotFound />,
+  },
   {
     path: '/venda',
     element: <SellRegister />,

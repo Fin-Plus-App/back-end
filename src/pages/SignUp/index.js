@@ -60,6 +60,7 @@ export default function SignUp() {
           type="text"
           placeholder="Digite seu nome"
           disabled={signUpLoading}
+          autoComplete="off"
           required
         />
         <InputForm
@@ -71,6 +72,7 @@ export default function SignUp() {
           type="email"
           placeholder="exemplo@email.com"
           disabled={signUpLoading}
+          autoComplete="off"
           required
         />
         <InputForm
