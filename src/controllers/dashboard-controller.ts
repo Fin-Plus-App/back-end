@@ -13,10 +13,7 @@ export async function postFavoriteStock(req: AuthenticatedRequest, res: Response
 
     return res.status(httpStatus.CREATED).send(result);
   } catch (error) {
-    if (error.name === 'ConflictError') {
-      return res.status(httpStatus.CONFLICT).send(error);
-    }
-    return res.sendStatus(httpStatus.BAD_REQUEST);
+    return res.status(httpStatus.CONFLICT).send(error);
   }
 }
 
@@ -45,9 +42,7 @@ export async function deleteFavoriteStock(req: AuthenticatedRequest, res: Respon
     if (error.name === 'NotFoundError') {
       return res.sendStatus(httpStatus.NOT_FOUND);
     }
-    if (error.name === 'ForbiddenError') {
-      return res.sendStatus(httpStatus.FORBIDDEN);
-    }
-    return res.sendStatus(httpStatus.BAD_REQUEST);
+
+    return res.sendStatus(httpStatus.FORBIDDEN);
   }
 }

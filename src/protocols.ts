@@ -9,6 +9,12 @@ export type CreateUserParams = {
   password: string;
 };
 
+export type UpdateUserParams = {
+  name: string;
+  email: string;
+  pictureUrl?: string;
+};
+
 export type SignInParams = {
   email: string;
   password: string;
@@ -28,6 +34,10 @@ export type CreateTransactionParams = {
   amount: number;
   date: Date;
   status: 'BUY' | 'SELL';
+};
+
+export type DeleteTransactionParams = {
+  id: number;
 };
 
 export type RequestError = {
