@@ -29,3 +29,13 @@ export async function getUserPortifolio(token) {
 
   return response.data;
 }
+
+export async function deleteTransaction(transactionId, token) {
+  const response = await api.delete(`/transaction/${transactionId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response;
+}

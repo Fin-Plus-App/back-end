@@ -147,7 +147,7 @@ export default function SellRegister() {
           required
         ></InputForm>
         <ButtonForm type="submit" disabled="">
-          Salvar venda
+          Salvar
         </ButtonForm>
       </FormContainer>
     </SellRegisterContainer>

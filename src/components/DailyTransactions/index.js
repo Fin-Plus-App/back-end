@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import Transaction from './Transaction';
 import dayjs from 'dayjs';
 
-export default function DailyTransactions({ dailyTransactions }) {
+export default function DailyTransactions({ dailyTransactions, setUserRecords }) {
   const dateString = dailyTransactions.date;
   const date = dayjs(dateString).format('DD/MM/YYYY');
 
@@ -18,10 +18,11 @@ export default function DailyTransactions({ dailyTransactions }) {
           <h4>Preço Unitário</h4>
           <h4>Total</h4>
           <h4>Operação</h4>
+          <h5></h5>
         </Labels>
 
         {dailyTransactions.trades.map((transaction) => {
-          return <Transaction transaction={transaction} key={transaction.id} />;
+          return <Transaction transaction={transaction} key={transaction.id} setUserRecords={setUserRecords} />;
         })}
       </TransactionContainer>
     </DailyContainer>
@@ -55,6 +56,11 @@ const Labels = styled.div`
 
   h4 {
     width: 4rem;
+    text-align: center;
+  }
+
+  h5 {
+    width: 1rem;
     text-align: center;
   }
 `;

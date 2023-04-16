@@ -11,7 +11,6 @@ import useTickersData from '../../hooks/brapiApi/useTickersData';
 export default function Dashboard() {
   const { userData } = useContext(UserContext);
   const navigate = useNavigate();
-  const [tickersData, setTickersData] = useState();
   const { userPortifolio } = useUserPortifolio();
   const { getTickersData } = useTickersData();
   const [total, setTotal] = useState();
@@ -50,8 +49,6 @@ export default function Dashboard() {
   async function getPortifolioTickersData(params) {
     try {
       const result = await getTickersData(params);
-      setTickersData(result);
-
       const labels = userPortifolio.map((portifolioItem) => {
         return portifolioItem.ticker;
       });

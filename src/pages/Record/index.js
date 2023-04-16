@@ -7,11 +7,17 @@ import Header from '../../components/Header';
 import DailyTransactions from '../../components/DailyTransactions';
 
 export default function Record() {
+  const [userRecords, setUserRecords] = useState();
   const { userData } = useContext(UserContext);
   const navigate = useNavigate();
   const [userTransactions, setUserTransactions] = useState();
-
   const { allUserTransactions } = useAllUserTransactions();
+
+  useEffect(() => {
+    if (allUserTransactions) {
+      setUserRecords(allUserTransactions);
+    }
+  }, [allUserTransactions]);
 
   useEffect(() => {
     if (!userData.token) {
@@ -20,8 +26,8 @@ export default function Record() {
   }, []);
 
   useEffect(() => {
-    if (allUserTransactions) {
-      const groupedTransactions = allUserTransactions.reduce((acc, curr) => {
+    if (userRecords) {
+      const groupedTransactions = userRecords.reduce((acc, curr) => {
         const date = curr.date;
 
         if (!acc[date]) {
@@ -38,9 +44,9 @@ export default function Record() {
 
       setUserTransactions(transformedArray);
     }
-  }, [allUserTransactions]);
+  }, [userRecords]);
 
-  if (!userTransactions) {
+  if (!userTransactions || !userRecords) {
     return <></>;
   }
 
@@ -52,7 +58,13 @@ export default function Record() {
           <h2>Histórico de compra e venda:</h2>
         </RecordSubTitle>
         {userTransactions.map((dailyTransactions) => {
-          return <DailyTransactions key={dailyTransactions.date} dailyTransactions={dailyTransactions} />;
+          return (
+            <DailyTransactions
+              key={dailyTransactions.date}
+              dailyTransactions={dailyTransactions}
+              setUserRecords={setUserRecords}
+            />
+          );
         })}
       </RecordInfos>
     </RecordContainer>
