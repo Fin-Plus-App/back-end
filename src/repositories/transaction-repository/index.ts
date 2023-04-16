@@ -9,6 +9,10 @@ async function createTransaction(data: Prisma.TransactionUncheckedCreateInput) {
 
 async function findTransactionSummary(userId: number, ticker: string) {
   return prisma.transaction.groupBy({
+    where: {
+      userId,
+      ticker,
+    },
     by: ['status'],
     _sum: {
       amount: true,
