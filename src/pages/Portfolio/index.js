@@ -96,7 +96,8 @@ export default function Portifolio() {
 
   return (
     <PortfolioContainer>
-      <Header page={'Minha Carteira'} />
+      <Header />
+      <PageTitle>Minha Carteira</PageTitle>
       <PortfolioInfos>
         <PortfolioChart chartData={chartData} total={total} />
         <PortfolioTickers userPortifolio={userPortifolio} tickersData={tickersData} />
@@ -116,4 +117,12 @@ const PortfolioContainer = styled.div`
 const PortfolioInfos = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+const PageTitle = styled.h3`
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin-top: 1.5rem;
+  text-align: center;
+  cursor: pointer;
 `;

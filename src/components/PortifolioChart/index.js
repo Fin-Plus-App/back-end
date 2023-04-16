@@ -55,7 +55,7 @@ const ArrowIcon = styled.div`
 
 const TotalPortifolio = styled.div`
   display: flex;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   p {
     font-weight: 500;
   }

@@ -4,17 +4,24 @@ import UserContext from '../contexts/UserContext';
 import { IoPersonCircle } from 'react-icons/io5';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import { BiLogOut } from 'react-icons/bi';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { FaPlusCircle, FaMinusCircle } from 'react-icons/fa';
 
-export default function Header({ page }) {
+export default function Header() {
   const navigate = useNavigate();
   const { userData, setUserData } = useContext(UserContext);
-  const [menuOpen, setMenuOpen] = useState();
+  const [dropdownMenuOpen, setDropdownMenuOpen] = useState(false);
+  const [hamburguerMenuOpen, setHamburguerMenuOpen] = useState(false);
 
   function logOut() {
     localStorage.removeItem('userData');
     setUserData({});
     navigate('/');
+  }
+
+  function closeMenus() {
+    setDropdownMenuOpen(false);
+    setHamburguerMenuOpen(false);
   }
 
   if (!userData || JSON.stringify(userData) === '{}') {
@@ -24,8 +31,33 @@ export default function Header({ page }) {
   return (
     <HeaderContainer>
       <PageMenu>
-        <p>X</p>
-        <Logo>fin+</Logo>
+        <HamburguerMenu onClick={() => setHamburguerMenuOpen(!hamburguerMenuOpen)}>
+          <div></div>
+          <div></div>
+          <div></div>
+        </HamburguerMenu>
+        {hamburguerMenuOpen && (
+          <Menu>
+            <MenuItem onClick={() => navigate('/dashboard')}>Dashboard</MenuItem>
+            <MenuItem onClick={() => navigate('/carteira')}>Minha Carteira</MenuItem>
+            <MenuItem onClick={() => navigate('/compra')}>
+              Registrar Compra
+              <PlusIcon>
+                <FaPlusCircle />
+              </PlusIcon>
+            </MenuItem>
+            <MenuItem onClick={() => navigate('/venda')}>
+              Registrar Venda
+              <MinusIcon>
+                <FaMinusCircle />
+              </MinusIcon>
+            </MenuItem>
+            <MenuItem onClick={() => navigate('/registros')}>Registros</MenuItem>
+          </Menu>
+        )}
+        <Logo>
+          <Link to="/dashboard">fin+</Link>
+        </Logo>
       </PageMenu>
       <UserInfos>
         <UserName>{userData.user.name}</UserName>
@@ -36,9 +68,9 @@ export default function Header({ page }) {
             <IoPersonCircle />
           </UserAvatar>
         )}
-        <Options onClick={() => setMenuOpen(!menuOpen)}>
-          {menuOpen ? <IoIosArrowUp /> : <IoIosArrowDown />}
-          {menuOpen && (
+        <Options onClick={() => setDropdownMenuOpen(!dropdownMenuOpen)}>
+          {dropdownMenuOpen ? <IoIosArrowUp /> : <IoIosArrowDown />}
+          {dropdownMenuOpen && (
             <DropdownMenuActive>
               <Option onClick={logOut}>
                 <BiLogOut />
@@ -48,7 +80,7 @@ export default function Header({ page }) {
           )}
         </Options>
       </UserInfos>
-      <OverlayMenu onClick={() => setMenuOpen(!menuOpen)} menuOpen={menuOpen}></OverlayMenu>
+      <OverlayMenu onClick={closeMenus} menuOpen={dropdownMenuOpen || hamburguerMenuOpen}></OverlayMenu>
     </HeaderContainer>
   );
 }
@@ -81,6 +113,7 @@ const OverlayMenu = styled.div`
 
 const PageMenu = styled.div`
   display: flex;
+  align-items: center;
   font-size: 1.5rem;
   font-weight: 500;
   color: #ffffff;
@@ -96,6 +129,11 @@ const Logo = styled.h2`
   font-weight: 500;
   color: #ffffff;
   text-align: start;
+  cursor: pointer;
+
+  a:visited {
+    color: #ffffff;
+  }
 `;
 
 const UserInfos = styled.div`
@@ -141,24 +179,24 @@ const Options = styled.div`
 `;
 
 const DropdownMenuActive = styled.div`
-  width: 125px;
+  width: 7.825rem;
   display: flex;
   flex-direction: column;
   position: absolute;
-  top: 60px;
+  top: 3.75rem;
   right: 0;
-  border-radius: 5px;
-  padding: 10px 20px;
+  border-radius: 0.3rem;
+  padding: 0.625rem 1.25rem;
   z-index: 3;
   background: #ffffff;
 
   &::before {
     content: '';
     position: absolute;
-    top: -5px;
-    right: 10px;
-    height: 20px;
-    width: 20px;
+    top: -0.3rem;
+    right: 0.625rem;
+    height: 1.25rem;
+    width: 1.25rem;
     z-index: 3;
     transform: rotate(45deg);
     background: #ffffff;
@@ -181,4 +219,58 @@ const Option = styled.div`
     color: #d52b2b;
     cursor: pointer;
   }
+`;
+
+const HamburguerMenu = styled.div`
+  margin-right: 1rem;
+  cursor: pointer;
+  div {
+    width: 2rem;
+    height: 0.125rem;
+    background: #ffffff;
+    margin: 0.5rem;
+  }
+`;
+
+const Menu = styled.ul`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  list-style-type: none;
+  background-color: #ffffff;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: 5rem;
+  left: 1rem;
+  border-radius: 5px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
+  z-index: 3;
+`;
+
+const MenuItem = styled.li`
+  width: 100%;
+  display: flex;
+  padding: 10px 20px;
+  font-family: 'Comfortaa', cursive;
+  font-weight: 700;
+  font-size: 18px;
+  color: #000000;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #d52b2b;
+    color: #ffffff;
+  }
+`;
+
+const PlusIcon = styled.div`
+  margin-left: 1rem;
+  color: #008000;
+`;
+
+const MinusIcon = styled(PlusIcon)`
+  color: #ff0000;
 `;

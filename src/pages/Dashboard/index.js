@@ -111,14 +111,12 @@ export default function Dashboard() {
 
   return (
     <DashboardContainer>
-      <Header page={'Dashboard'} />
+      <Header />
+      <PageTitle>Dashboard</PageTitle>
       <PortfolioContainer>
-        <PortfolioTitle>
-          <Link to="/portfolio">Minha Carteira</Link>
-        </PortfolioTitle>
         <PortfolioChart chartData={chartData} total={total} />
         <PortfolioLink>
-          <Link to="/portfolio">Ir para a carteira</Link>
+          <Link to="/carteira">Ir para a carteira</Link>
         </PortfolioLink>
       </PortfolioContainer>
       <FavoriteTickers />
@@ -140,15 +138,12 @@ const PortfolioContainer = styled.div`
   align-items: center;
 `;
 
-const PortfolioTitle = styled.h3`
+const PageTitle = styled.h3`
   font-size: 1.5rem;
   font-weight: 400;
   margin-top: 1.5rem;
+  text-align: center;
   cursor: pointer;
-
-  a:visited {
-    color: #ffffff;
-  }
 `;
 
 const PortfolioLink = styled.div`

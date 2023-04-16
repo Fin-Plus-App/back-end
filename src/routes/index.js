@@ -5,6 +5,8 @@ import Portifolio from '../pages/Portfolio';
 import Record from '../pages/Record';
 import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
+import BuyRegister from '../pages/BuyRegister';
+import SellRegister from '../pages/SellRegister';
 
 export const router = createBrowserRouter([
   {
@@ -23,13 +25,24 @@ export const router = createBrowserRouter([
     errorElement: <NotFound />,
   },
   {
-    path: '/registro',
-    element: <Record />,
+    path: '/carteira',
+    element: <Portifolio />,
     errorElement: <NotFound />,
   },
   {
-    path: '/portfolio',
-    element: <Portifolio />,
+    path: '/compra',
+    element: <BuyRegister />,
+    errorElement: <NotFound />,
+  },
+  {
+    path: '/registros',
+    element: <Record />,
+    errorElement: <NotFound />,
+  },
+
+  {
+    path: '/venda',
+    element: <SellRegister />,
     errorElement: <NotFound />,
   },
 ]);

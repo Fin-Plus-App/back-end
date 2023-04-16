@@ -46,7 +46,7 @@ export default function Record() {
 
   return (
     <RecordContainer>
-      <Header page={'Registros'} />
+      <Header />
       <RecordInfos>
         <RecordSubTitle>
           <h2>Histórico de compra e venda:</h2>
