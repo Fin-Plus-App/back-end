@@ -77,6 +77,8 @@ const TickerContainer = styled.div`
   height: 4rem;
   justify-content: space-around;
   align-items: center;
+  font-size: 0.9rem;
+  padding: 0 0.5rem;
 `;
 
 const TickerImage = styled.img`
@@ -84,9 +86,13 @@ const TickerImage = styled.img`
   border-radius: 0.5rem;
 `;
 
-const Ticker = styled.div``;
+const Ticker = styled.div`
+  width: 4rem;
+  text-align: center;
+`;
 
 const TickerPrice = styled.div`
+  width: 5rem;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -95,6 +101,7 @@ const TickerPrice = styled.div`
 `;
 
 const TickerVariation = styled.div`
+  width: 6rem;
   display: flex;
   flex-direction: column;
   height: 100%;

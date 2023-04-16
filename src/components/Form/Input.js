@@ -11,21 +11,37 @@ export default function InputForm({
   minLength,
   disabled,
   required,
+  autoComplete,
 }) {
   return (
     <InputContainer>
       <LabelStyle htmlFor={id}>{label}</LabelStyle>
-      <InputStyle
-        name={name}
-        id={id}
-        value={value}
-        onChange={onChange}
-        type={type}
-        placeholder={placeholder}
-        minLength={minLength}
-        disabled={disabled}
-        required={required}
-      />
+      {autoComplete ? (
+        <InputStyle
+          name={name}
+          id={id}
+          value={value}
+          onChange={onChange}
+          type={type}
+          placeholder={placeholder}
+          minLength={minLength}
+          disabled={disabled}
+          required={required}
+          autoComplete={autoComplete}
+        />
+      ) : (
+        <InputStyle
+          name={name}
+          id={id}
+          value={value}
+          onChange={onChange}
+          type={type}
+          placeholder={placeholder}
+          minLength={minLength}
+          disabled={disabled}
+          required={required}
+        />
+      )}
     </InputContainer>
   );
 }

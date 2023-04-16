@@ -51,7 +51,15 @@ export default function FavoriteTickers() {
   }
 
   if (!tickers || !favoriteTickers) {
-    return <></>;
+    return (
+      <FavoriteTickersContainer>
+        <AddFavoriteTicker setTickers={setTickers} />
+        <AddMessage>
+          <h4>Você ainda não adicionou nenhum ticker aos seus favoritos.</h4>
+          <p>Busque por um ticker e adicione aos seus favoritos!</p>
+        </AddMessage>
+      </FavoriteTickersContainer>
+    );
   }
 
   return (
@@ -73,4 +81,24 @@ const FavoriteTickersContainer = styled.div`
   border-radius: 0.5rem;
   margin: 1rem;
   overflow-y: hidden;
+`;
+
+const AddMessage = styled.div`
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  margin: auto 0;
+
+  h4 {
+    font-size: 1.2rem;
+    font-weight: 500;
+  }
+
+  p {
+    font-size: 1rem;
+    font-weight: 300;
+    margin-top: 1rem;
+  }
 `;
