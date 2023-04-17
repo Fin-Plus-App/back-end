@@ -56,7 +56,12 @@ const ArrowIcon = styled.div`
 const TotalPortifolio = styled.div`
   display: flex;
   font-size: 1.2rem;
+
   p {
     font-weight: 500;
+  }
+
+  @media (min-width: 1024px) {
+    font-size: 1.4rem;
   }
 `;

@@ -21,6 +21,10 @@ const LogoName = styled.div`
   font-size: 5rem;
   color: #ffffff;
   margin-bottom: 2rem;
+
+  @media (min-width: 1024px) {
+    font-size: 7rem;
+  }
 `;
 
 const DynamicText = styled.p`

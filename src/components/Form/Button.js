@@ -23,6 +23,8 @@ const ButtonContainer = styled.div`
 `;
 
 const ButtonStyle = styled.button`
+  min-width: 9rem;
+  max-width: 16rem;
   display: flex;
   justify-content: center;
   align-items: center;

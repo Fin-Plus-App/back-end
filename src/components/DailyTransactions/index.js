@@ -30,6 +30,7 @@ export default function DailyTransactions({ dailyTransactions, setUserRecords })
 }
 
 const DailyContainer = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   padding: 0 1rem;
@@ -57,11 +58,23 @@ const Labels = styled.div`
   h4 {
     width: 4rem;
     text-align: center;
+
+    @media (min-width: 1024px) {
+      width: 7rem;
+    }
   }
 
   h5 {
     width: 1rem;
     text-align: center;
+
+    @media (min-width: 1024px) {
+      width: 2rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    font-size: 1.2rem;
   }
 `;
 
@@ -75,6 +88,10 @@ const DailyTitle = styled.div`
     margin-right: 0.5rem;
     font-size: 1rem;
     font-weight: 500;
+
+    @media (min-width: 1024px) {
+    font-size: 1.3rem;
+  }
   }
 `;
 

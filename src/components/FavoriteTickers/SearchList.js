@@ -48,6 +48,7 @@ export default function SearchList({ tickersList, setSearchOpen, setSelectedTick
 }
 
 const SearchListContainer = styled.div`
+  width: 100%;
   max-height: 9rem;
   display: flex;
   flex-direction: column;
@@ -67,6 +68,10 @@ const ResultSearch = styled.div`
 const TickerImage = styled.img`
   width: 3rem;
   border-radius: 0.5rem;
+
+  @media (min-width: 1024px) {
+    margin: 0 2rem 0 0;
+  }
 `;
 
 const Ticker = styled.div`

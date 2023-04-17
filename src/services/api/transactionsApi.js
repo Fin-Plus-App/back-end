@@ -20,7 +20,7 @@ export async function getAllUserTransactions(token) {
   return response.data;
 }
 
-export async function getUserPortifolio(token) {
+export async function getUserPortfolio(token) {
   const response = await api.get('/transaction/portfolio', {
     headers: {
       Authorization: `Bearer ${token}`,

@@ -86,6 +86,7 @@ const AddFavoriteTickerContainer = styled.div`
 
 const SearchInput = styled.input`
   width: 90%;
+  max-width: 30rem;
   height: 2.5rem;
   border: 1px solid #cecece;
   border-radius: 0.3rem;
@@ -105,6 +106,7 @@ const SearchContainer = styled.div`
 
 const ResultContainer = styled.div`
   width: 90%;
+  max-width: 30rem;
   display: flex;
   justify-content: center;
   align-items: center;

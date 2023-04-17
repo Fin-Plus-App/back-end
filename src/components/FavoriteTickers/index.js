@@ -94,11 +94,19 @@ const AddMessage = styled.div`
   h4 {
     font-size: 1.2rem;
     font-weight: 500;
+
+    @media (min-width: 1024px) {
+      font-size: 1.4rem;
+    }
   }
 
   p {
     font-size: 1rem;
     font-weight: 300;
     margin-top: 1rem;
+
+    @media (min-width: 1024px) {
+      font-size: 1.2rem;
+    }
   }
 `;

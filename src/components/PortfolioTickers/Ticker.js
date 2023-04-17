@@ -86,9 +86,13 @@ const TickerContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   overflow-y: hidden;
-  
+
   &::-webkit-scrollbar {
     display: none;
+  }
+
+  @media (min-width: 1024px) {
+    font-size: 1.1rem;
   }
 `;
 
@@ -100,16 +104,26 @@ const FixedInfos = styled.div`
 `;
 
 const Infos = styled.div`
+  width: 100%;
   height: 100%;
   display: flex;
+  justify-content: space-between;
   align-items: center;
   margin-left: 9rem;
+
+  @media (min-width: 1024px) {
+    justify-content: space-around;
+  }
 `;
 
 const TickerImage = styled.img`
   width: 3rem;
   border-radius: 0.5rem;
   margin: 0 0 0 1rem;
+
+  @media (min-width: 1024px) {
+    width: 3.5rem;
+  }
 `;
 
 const TickerSymbol = styled.div`
@@ -135,7 +149,6 @@ const TickerVariationPercent = styled.div`
   height: 100%;
   justify-content: space-around;
   margin: 0 0.5rem;
-
   div {
     display: flex;
     justify-content: center;
@@ -151,7 +164,6 @@ const VariationPrice = styled.div`
   height: 100%;
   justify-content: space-around;
   margin: 0 0.5rem;
-
   div {
     display: flex;
     justify-content: center;

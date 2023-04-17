@@ -69,6 +69,10 @@ export const Title = styled.h2`
   font-size: 1rem;
   color: #ffffff;
   text-align: center;
+
+  @media (min-width: 1024px) {
+    font-size: 1.5rem;
+  }
 `;
 
 export const TextContent = styled.h2`
@@ -87,8 +91,13 @@ export const TextContent = styled.h2`
     margin: 0.2rem 0;
   }
 
-  P {
+  p {
     text-align: center;
+  }
+
+  @media (min-width: 1024px) {
+    width: 17rem;
+    font-size: 1.3rem;
   }
 `;
 
@@ -97,6 +106,10 @@ export const ButtonContainer = styled.div`
   display: flex;
   justify-content: space-between;
   margin-top: 1rem;
+
+  @media (min-width: 1024px) {
+    width: 14rem;
+  }
 `;
 
 export const Close = styled.button`
@@ -110,6 +123,12 @@ export const Close = styled.button`
   font-size: 0.6rem;
   color: #1877f2;
   cursor: pointer;
+
+  @media (min-width: 1024px) {
+    width: 6rem;
+    height: 2rem;
+    font-size: 1rem;
+  }
 `;
 
 export const Comfirm = styled.button`
@@ -126,4 +145,10 @@ export const Comfirm = styled.button`
   font-size: 0.6rem;
   color: #ffffff;
   cursor: pointer;
+
+  @media (min-width: 1024px) {
+    width: 6rem;
+    height: 2rem;
+    font-size: 1rem;
+  }
 `;

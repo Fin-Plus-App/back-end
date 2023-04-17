@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
 import Header from '../../components/Header';
-import useUserPortifolio from '../../hooks/api/useUserPortifolio';
+import useUserPortfolio from '../../hooks/api/useUserPortfolio';
 import useTickersData from '../../hooks/brapiApi/useTickersData';
 import PortfolioTickers from '../../components/PortfolioTickers';
 import PortfolioChart from '../../components/PortifolioChart';
 import styled from 'styled-components';
+import LoadingPage from '../../components/LoadingPage';
 
 export default function Portifolio() {
   const [tickersData, setTickersData] = useState();
-  const { userPortifolio } = useUserPortifolio();
+  const { userPortfolio } = useUserPortfolio();
   const { getTickersData } = useTickersData();
   const [total, setTotal] = useState();
   const [chartData, setChartData] = useState({
@@ -25,9 +26,9 @@ export default function Portifolio() {
   });
 
   useEffect(() => {
-    if (userPortifolio) {
+    if (userPortfolio) {
       const tickersList = [];
-      userPortifolio.forEach((item) => {
+      userPortfolio.forEach((item) => {
         return tickersList.push(item.ticker);
       });
 
@@ -35,14 +36,14 @@ export default function Portifolio() {
 
       getPortifolioTickersData(params);
     }
-  }, [userPortifolio]);
+  }, [userPortfolio]);
 
   async function getPortifolioTickersData(params) {
     try {
       const result = await getTickersData(params);
       setTickersData(result);
 
-      const labels = userPortifolio.map((portifolioItem) => {
+      const labels = userPortfolio.map((portifolioItem) => {
         return portifolioItem.ticker;
       });
 
@@ -54,7 +55,7 @@ export default function Portifolio() {
 
       let totalPortifolio = 0;
 
-      userPortifolio.forEach((portifolioItem) => {
+      userPortfolio.forEach((portifolioItem) => {
         const tickerData = result.find((data) => {
           return data.symbol === portifolioItem.ticker;
         });
@@ -90,8 +91,16 @@ export default function Portifolio() {
     return color;
   }
 
-  if (!chartData || !userPortifolio || !tickersData) {
-    return <></>;
+  if (!chartData || !userPortfolio || !tickersData) {
+    return (
+      <PortfolioContainer>
+        <Header />
+        <PageTitle>Minha Carteira</PageTitle>
+        <EmptyPortfolio>
+          <h4>Sua carteira está vazia, adicione novos ativos!</h4>
+        </EmptyPortfolio>
+      </PortfolioContainer>
+    );
   }
 
   return (
@@ -100,7 +109,7 @@ export default function Portifolio() {
       <PageTitle>Minha Carteira</PageTitle>
       <PortfolioInfos>
         <PortfolioChart chartData={chartData} total={total} />
-        <PortfolioTickers userPortifolio={userPortifolio} tickersData={tickersData} />
+        <PortfolioTickers userPortfolio={userPortfolio} tickersData={tickersData} />
       </PortfolioInfos>
     </PortfolioContainer>
   );
@@ -112,11 +121,16 @@ const PortfolioContainer = styled.div`
   position: relative;
   color: #ffffff;
   margin-top: 4rem;
+
+  @media (min-width: 1024px) {
+    margin-top: 6rem;
+  }
 `;
 
 const PortfolioInfos = styled.div`
   display: flex;
   flex-direction: column;
+  margin-bottom: 2rem;
 `;
 
 const PageTitle = styled.h3`
@@ -124,5 +138,29 @@ const PageTitle = styled.h3`
   font-weight: 400;
   margin-top: 1.5rem;
   text-align: center;
-  cursor: pointer;
+
+  @media (min-width: 1024px) {
+    font-size: 2.2rem;
+  }
+`;
+
+const EmptyPortfolio = styled.div`
+  width: calc(100% - 2rem);
+  height: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5rem 1rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+  text-align: center;
+  border: 1px solid #cecece;
+  border-radius: 0.5rem;
+
+  h4 {
+    width: 90%;
+  }
+  @media (min-width: 1024px) {
+    font-size: 1.4rem;
+  }
 `;

@@ -5,21 +5,35 @@ import { useState } from 'react';
 import { toast } from 'react-toastify';
 import useDeleteTransaction from '../../hooks/api/useDeleteTransaction';
 import useAllUserTransactions from '../../hooks/api/useAllUserTransactions';
+import { useEffect } from 'react';
 
 export default function Transaction({ transaction, setUserRecords }) {
   const { deleteTransaction } = useDeleteTransaction();
   const { getAllUserTransactions } = useAllUserTransactions();
   const [modalIsOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [update, setUpdate] = useState(false);
+
+  useEffect(() => {
+    updateTransactions();
+  }, [update]);
+
+  async function updateTransactions() {
+    try {
+      const result = await getAllUserTransactions();
+      setUserRecords(result);
+    } catch (error) {
+      console.log(error);
+      window.location.reload();
+    }
+  }
 
   async function deleteUserTransaction() {
     setLoading(true);
 
     try {
       await deleteTransaction(transaction.id);
-      const result = await getAllUserTransactions();
-      console.log(result);
-      setUserRecords(result);
+      setUpdate(!update);
       setLoading(false);
       setIsOpen(false);
       toast.success('Informações salvas com sucesso!');
@@ -31,7 +45,7 @@ export default function Transaction({ transaction, setUserRecords }) {
   }
 
   return (
-    <TransactionContainer>
+    <>
       <ModalComponent
         title="Deseja remover esse registro?"
         close="Cancelar"
@@ -41,23 +55,25 @@ export default function Transaction({ transaction, setUserRecords }) {
         propsFunction={deleteUserTransaction}
         loading={loading}
       />
-      <TransactionInfo>
-        <p>{transaction.ticker} </p>
-      </TransactionInfo>
-      <TransactionInfo>
-        <p>{transaction.amount.toFixed(2).replace('.', ',')}</p>
-      </TransactionInfo>
-      <TransactionInfo>
-        <p>R$ {(transaction.totalPrice / 100 / transaction.amount).toFixed(2).replace('.', ',')}</p>
-      </TransactionInfo>
-      <TransactionInfo>
-        <p>R$ {(transaction.totalPrice / 100).toFixed(2).replace('.', ',')}</p>
-      </TransactionInfo>
-      <TransactionInfo>{transaction.status === 'BUY' ? <p>Compra</p> : <p> Venda</p>}</TransactionInfo>
-      <DeleteContainer onClick={() => setIsOpen(true)}>
-        <BsFillTrash3Fill />
-      </DeleteContainer>
-    </TransactionContainer>
+      <TransactionContainer>
+        <TransactionInfo>
+          <p>{transaction.ticker} </p>
+        </TransactionInfo>
+        <TransactionInfo>
+          <p>{transaction.amount.toFixed(2).replace('.', ',')}</p>
+        </TransactionInfo>
+        <TransactionInfo>
+          <p>R$ {(transaction.totalPrice / 100 / transaction.amount).toFixed(2).replace('.', ',')}</p>
+        </TransactionInfo>
+        <TransactionInfo>
+          <p>R$ {(transaction.totalPrice / 100).toFixed(2).replace('.', ',')}</p>
+        </TransactionInfo>
+        <TransactionInfo>{transaction.status === 'BUY' ? <p>Compra</p> : <p> Venda</p>}</TransactionInfo>
+        <DeleteContainer onClick={() => setIsOpen(true)}>
+          <BsFillTrash3Fill />
+        </DeleteContainer>
+      </TransactionContainer>
+    </>
   );
 }
 
@@ -76,6 +92,11 @@ const TransactionInfo = styled.div`
   align-items: center;
   justify-content: space-between;
   font-size: 0.8rem;
+
+  @media (min-width: 1024px) {
+    font-size: 1.2rem;
+    width: 7rem;
+  }
 `;
 
 const DeleteContainer = styled.div`
@@ -87,4 +108,9 @@ const DeleteContainer = styled.div`
   justify-content: space-between;
   font-size: 0.8rem;
   cursor: pointer;
+
+  @media (min-width: 1024px) {
+    font-size: 1.2rem;
+    width: 2rem;
+  }
 `;

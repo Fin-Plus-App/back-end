@@ -7,6 +7,7 @@ import { useContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import UserContext from '../../contexts/UserContext';
 import useUpdateUser from '../../hooks/api/useUpdateUser';
+import LoadingPage from '../../components/LoadingPage';
 
 export default function UserInfos() {
   const { userData, setUserData } = useContext(UserContext);
@@ -26,7 +27,7 @@ export default function UserInfos() {
   }, [userData]);
 
   if (!userData) {
-    return <></>;
+    return <LoadingPage />;
   }
 
   function handleForm(event) {
@@ -63,6 +64,7 @@ export default function UserInfos() {
   return (
     <PageContainer>
       <Header />
+      <PageTitle>Informações do perfil</PageTitle>
       <UserInfosContainer>
         <UserPicture>
           {userData.user.pictureUrl ? (
@@ -118,8 +120,25 @@ const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
   color: #ffffff;
   margin-top: 4rem;
+
+  @media (min-width: 1024px) {
+    margin-top: 6rem;
+  }
+`;
+
+const PageTitle = styled.h3`
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin-top: 1.5rem;
+  text-align: center;
+  cursor: pointer;
+
+  @media (min-width: 1024px) {
+    font-size: 2.2rem;
+  }
 `;
 
 const UserInfosContainer = styled.div`
@@ -143,6 +162,15 @@ const UserPicture = styled.div`
     border-radius: 50%;
     border: 2px solid #cecece;
     margin: 1rem;
+
+    @media (min-width: 1024px) {
+      width: 10rem;
+      height: 10rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    font-size: 12rem;
   }
 `;
 

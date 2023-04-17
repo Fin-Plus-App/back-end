@@ -3,12 +3,12 @@ import Ticker from './Ticker';
 import { useState } from 'react';
 import { useEffect } from 'react';
 
-export default function PortfolioTickers({ userPortifolio, tickersData }) {
+export default function PortfolioTickers({ userPortfolio, tickersData }) {
   const [portfolioTickers, setPortfolioTickers] = useState();
 
   useEffect(() => {
-    if (userPortifolio && tickersData) {
-      const combinedArray = userPortifolio.map((portfolioItem) => {
+    if (userPortfolio && tickersData) {
+      const combinedArray = userPortfolio.map((portfolioItem) => {
         const tickerData = tickersData.find((tickerItem) => tickerItem.symbol === portfolioItem.ticker);
         return {
           ticker: portfolioItem.ticker,
@@ -20,7 +20,7 @@ export default function PortfolioTickers({ userPortifolio, tickersData }) {
 
       setPortfolioTickers(combinedArray);
     }
-  }, [userPortifolio, tickersData]);
+  }, [userPortfolio, tickersData]);
 
   if (!portfolioTickers || portfolioTickers.length === 0) {
     return <></>;

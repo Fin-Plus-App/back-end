@@ -47,7 +47,19 @@ export default function Record() {
   }, [userRecords]);
 
   if (!userTransactions || !userRecords) {
-    return <></>;
+    return (
+      <RecordContainer>
+        <Header />
+        <RecordInfos>
+          <RecordSubTitle>
+            <h2>Histórico de compra e venda:</h2>
+          </RecordSubTitle>
+          <RecordMessage>
+            <h4>Você não possui nenhum registro!</h4>
+          </RecordMessage>
+        </RecordInfos>
+      </RecordContainer>
+    );
   }
 
   return (
@@ -74,14 +86,21 @@ export default function Record() {
 const RecordContainer = styled.div`
   display: flex;
   flex-direction: column;
+  position: relative;
   color: #ffffff;
+  margin-top: 4rem;
+
+  @media (min-width: 1024px) {
+    margin-top: 6rem;
+  }
 `;
 
 const RecordInfos = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center;
   overflow-y: auto;
-  margin-top: 4rem;
   margin-bottom: 2rem;
 `;
 
@@ -92,7 +111,34 @@ const RecordSubTitle = styled.div`
   margin: 2rem 0 1rem 0;
 
   h2 {
-    font-size: 1.2rem;
-    font-weight: 500;
+    font-size: 1.5rem;
+    font-weight: 400;
+    text-align: center;
+    cursor: pointer;
+
+    @media (min-width: 1024px) {
+      font-size: 2.2rem;
+    }
+  }
+`;
+
+const RecordMessage = styled.div`
+  width: calc(100% - 2rem);
+  height: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5rem 1rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+  text-align: center;
+  border: 1px solid #cecece;
+  border-radius: 0.5rem;
+
+  h4 {
+    width: 90%;
+  }
+  @media (min-width: 1024px) {
+    font-size: 1.4rem;
   }
 `;

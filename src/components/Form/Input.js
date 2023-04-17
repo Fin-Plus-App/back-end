@@ -55,6 +55,7 @@ const InputContainer = styled.div`
 
 const InputStyle = styled.input`
   width: 90%;
+  max-width: 30rem;
   height: 2.5rem;
   margin-bottom: 1rem;
   border: 1px solid #cecece;
@@ -67,6 +68,7 @@ const InputStyle = styled.input`
 
 const LabelStyle = styled.label`
   width: 90%;
+  max-width: 30rem;
   margin-bottom: 0.3rem;
   font-size: 1.2rem;
   color: #ffffff;

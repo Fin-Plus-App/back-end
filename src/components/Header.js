@@ -104,6 +104,10 @@ const HeaderContainer = styled.div`
   top: 0;
   left: 0;
   right: 0;
+
+  @media (min-width: 1024px) {
+    height: 5rem;
+  }
 `;
 
 const OverlayMenu = styled.div`
@@ -137,6 +141,10 @@ const Logo = styled.h2`
   text-align: start;
   cursor: pointer;
 
+  @media (min-width: 1024px) {
+    font-size: 2.5rem;
+  }
+
   a:visited {
     color: #ffffff;
   }
@@ -155,6 +163,11 @@ const UserName = styled.div`
   align-items: center;
   font-size: 0.9rem;
   margin-right: 0.5rem;
+
+  @media (min-width: 1024px) {
+    font-size: 1.2rem;
+    margin-right: 1rem;
+  }
 `;
 
 const UserImage = styled.img`
@@ -165,6 +178,11 @@ const UserImage = styled.img`
   height: 2.5rem;
   border-radius: 50%;
   object-fit: cover;
+
+  @media (min-width: 1024px) {
+    width: 3rem;
+    height: 3rem;
+  }
 `;
 
 const UserAvatar = styled.div`
@@ -173,6 +191,10 @@ const UserAvatar = styled.div`
   align-items: center;
   font-size: 2.5rem;
   color: #ffffff;
+
+  @media (min-width: 1024px) {
+    font-size: 3rem;
+  }
 `;
 
 const Options = styled.div`
@@ -182,6 +204,11 @@ const Options = styled.div`
   font-size: 1.5rem;
   cursor: pointer;
   position: relative;
+
+  @media (min-width: 1024px) {
+    font-size: 1.8rem;
+    margin-left: 1rem;
+  }
 `;
 
 const DropdownMenuActive = styled.div`
@@ -195,6 +222,10 @@ const DropdownMenuActive = styled.div`
   padding: 0.625rem 1.25rem;
   z-index: 3;
   background: #ffffff;
+
+  @media (min-width: 1024px) {
+    width: 9rem;
+  }
 
   &::before {
     content: '';
@@ -215,12 +246,14 @@ const Option = styled.div`
   align-items: center;
   font-family: 'Comfortaa', cursive;
   font-weight: 700;
-  font-size: 18px;
+  font-size: 1.2rem;
   color: #000000;
-  margin-top: 10px;
-  h3 {
-    font-size: 14px;
+  margin-top: 0.8rem;
+
+  @media (min-width: 1024px) {
+    font-size: 1.4rem;
   }
+
   &:hover {
     color: ${(props) => props.color};
     cursor: pointer;
@@ -235,6 +268,11 @@ const HamburguerMenu = styled.div`
     height: 0.125rem;
     background: #ffffff;
     margin: 0.5rem;
+
+    @media (min-width: 1024px) {
+      width: 2.5rem;
+      height: 0.15rem;
+    }
   }
 `;
 
@@ -258,13 +296,17 @@ const Menu = styled.ul`
 const MenuItem = styled.li`
   width: 100%;
   display: flex;
-  padding: 10px 20px;
+  padding: 0.8rem 1.2rem;
   font-family: 'Comfortaa', cursive;
   font-weight: 700;
-  font-size: 18px;
+  font-size: 1.2rem;
   color: #000000;
-  border-radius: 5px;
+  border-radius: 0.4rem;
   cursor: pointer;
+
+  @media (min-width: 1024px) {
+    font-size: 1.4rem;
+  }
 
   &:hover {
     background-color: #00488e;

@@ -160,6 +160,10 @@ const SellRegisterContainer = styled.div`
   position: relative;
   color: #ffffff;
   margin-top: 4rem;
+
+  @media (min-width: 1024px) {
+    margin-top: 6rem;
+  }
 `;
 
 const PageTitle = styled.h3`
@@ -167,7 +171,10 @@ const PageTitle = styled.h3`
   font-weight: 400;
   margin-top: 1.5rem;
   text-align: center;
-  cursor: pointer;
+
+  @media (min-width: 1024px) {
+    font-size: 2.2rem;
+  }
 `;
 
 const FormContainer = styled.form`
@@ -180,6 +187,7 @@ const FormContainer = styled.form`
 
 const Label = styled.label`
   width: 90%;
+  max-width: 30rem;
   margin-bottom: 0.3rem;
   font-size: 1.2rem;
   color: #ffffff;

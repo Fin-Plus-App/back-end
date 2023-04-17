@@ -169,6 +169,12 @@ const CancelButton = styled.button`
   color: #ffffff;
   font-weight: 500;
   cursor: pointer;
+
+  @media (min-width: 1024px) {
+    width: 7rem;
+    height: 2.5rem;
+    font-size: 1.1rem;
+  }
 `;
 
 const ConfirmButton = styled(CancelButton)`
