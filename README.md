@@ -1,2 +1,2 @@
 # fin-plus-app-backend
-.
+. .
