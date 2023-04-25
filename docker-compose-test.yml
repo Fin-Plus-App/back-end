@@ -16,4 +16,4 @@ services:
     depends_on:
       - postgres
     env_file:
-      - ./back-end/.env.test
+      - .env.test
