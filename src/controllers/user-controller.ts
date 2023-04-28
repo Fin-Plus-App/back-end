@@ -1,8 +1,8 @@
-import { CreateUserParams, UpdateUserParams } from '@/protocols';
+import { CreateUserParams, UpdateUserParams } from '../protocols';
 import userService from '../services/user-service';
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
-import { AuthenticatedRequest } from '@/middlewares';
+import { AuthenticatedRequest } from '../middlewares';
 
 export async function postUser(req: Request, res: Response) {
   const { name, email, password } = req.body as CreateUserParams;
